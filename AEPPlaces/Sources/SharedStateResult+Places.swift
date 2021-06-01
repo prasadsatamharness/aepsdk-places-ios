@@ -13,6 +13,7 @@
 import Foundation
 import AEPCore
 
+/// Extension class providing streamlined access to Places data in `SharedStateResult` objects.
 extension SharedStateResult {
     // MARK: - Configuration
     var placesLibraries: [[String: Any]]? {

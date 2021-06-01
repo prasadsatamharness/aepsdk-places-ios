@@ -13,6 +13,8 @@
 import Foundation
 import AEPServices
 
+/// Contains information defining a `PlacesLibrary`.
+/// `PlacesLibrary` structs are primarily used in `PlacesConfiguration`.
 struct PlacesLibrary: Codable {
     let id: String
     let name: String

@@ -13,6 +13,7 @@
 import Foundation
 import AEPServices
 
+/// Object that represents a Point of Interest created in the Adobe Places UI.
 @objc(AEPPlacesPoi)
 public class PointOfInterest: NSObject {
     var identifier: String

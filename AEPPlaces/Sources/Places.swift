@@ -15,6 +15,8 @@ import AEPServices
 import CoreLocation
 import Foundation
 
+/// Places class that extends `Extension` with the Adobe Core EventHub.
+/// Responsible for handling and dispatching `Event`s
 @objc(AEPMobilePlaces)
 public class Places: NSObject, Extension {
     // MARK: - internal properties
@@ -110,6 +112,9 @@ public class Places: NSObject, Extension {
         privacyStatus = configSharedState.globalPrivacy
     }
 
+    /// Handles any Event with a type of `EventType.places`
+    ///
+    /// - Parameter event: the Places `Event` to be handled
     private func handlePlacesRequest(_ event: Event) {
         if event.isGetNearbyPlacesRequestType {
             handleGetNearbyPlacesRequest(event: event)

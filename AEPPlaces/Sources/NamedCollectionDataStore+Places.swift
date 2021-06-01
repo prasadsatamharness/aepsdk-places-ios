@@ -14,8 +14,10 @@ import AEPServices
 import CoreLocation
 import Foundation
 
+/// Provides getters and setters for Places values that are persisted in a `NamedCollectionDataStore`
 extension NamedCollectionDataStore {
     // MARK: - Getters
+
     var nearbyPois: [String: PointOfInterest] {
         if let persistedPois = getDictionary(key: PlacesConstants.UserDefaults.PERSISTED_NEARBY_POIS) as? [String: String] {
             var tempPois: [String: PointOfInterest] = [:]
@@ -87,6 +89,7 @@ extension NamedCollectionDataStore {
     }
 
     // MARK: - Setters
+
     func setNearbyPois(_ pois: [String: PointOfInterest]) {
         if !pois.isEmpty {
             var poiStringMap: [String: String] = [:]

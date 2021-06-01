@@ -12,6 +12,7 @@
 
 import Foundation
 
+/// Holds both the result and `PlacesQueryResponseCode` resulting from an interaction with the `PlacesQueryService`.
 struct PlacesQueryServiceResult {
     let response: PlacesQueryResponseCode
     let pois: [PointOfInterest]?

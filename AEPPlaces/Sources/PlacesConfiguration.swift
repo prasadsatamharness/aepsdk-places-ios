@@ -14,6 +14,8 @@ import Foundation
 import AEPServices
 import AEPCore
 
+/// Contains information required for Places to operate.
+/// Data is retrieved from `Configuration` Shared State.
 struct PlacesConfiguration: Codable {
     private(set) var libraries: [PlacesLibrary]
     private(set) var endpoint: String
