@@ -13,7 +13,12 @@
 import CoreLocation
 import Foundation
 
+/// Allows conversion of `CLAuthorizationStatus` to and from `String`
+/// String values are used in EventData for Places Events and Shared State
 extension CLAuthorizationStatus {
+    /// Creates a `CLAuthorizationStatus` variable from the provided `String` representation
+    /// If the parameter is not a recognized value, this initializer will return `.notDetermined`.
+    /// - Parameter fromString: the `String` value representing a `CLAuthorizationStatus` value
     init(fromString: String) {
         switch fromString {
         case "always":

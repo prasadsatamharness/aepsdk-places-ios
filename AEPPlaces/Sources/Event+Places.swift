@@ -13,6 +13,7 @@
 import Foundation
 import AEPCore
 
+/// Extension class providing streamlined access to data in `Event` objects.
 extension Event {
     // MARK: - Event Type/Source/Owner Detection
     var isPlacesRequestEvent: Bool {

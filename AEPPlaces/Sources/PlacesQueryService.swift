@@ -13,6 +13,7 @@
 import Foundation
 import AEPServices
 
+/// Owns methods interfacing with the Places Edge Query Service.
 class PlacesQueryService {
 
     /// Retrieves a list of nearby `PointsOfInterest` from the Places Edge Query Service.
