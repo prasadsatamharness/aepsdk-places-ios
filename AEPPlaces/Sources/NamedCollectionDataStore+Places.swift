@@ -65,12 +65,12 @@ extension NamedCollectionDataStore {
     var lastKnownLongitude: Double {
         return getDouble(key: PlacesConstants.UserDefaults.PERSISTED_LONGITUDE) ?? PlacesConstants.DefaultValues.INVALID_LAT_LON
     }
-    
+
     var accuracy: CLAccuracyAuthorization? {
         guard #available(iOS 14, *) else {
             return nil
         }
-        
+
         if let persistedAccuracy = getString(key: PlacesConstants.UserDefaults.PERSISTED_ACCURACY) {
             return CLAccuracyAuthorization(fromString: persistedAccuracy)
         }
@@ -155,7 +155,7 @@ extension NamedCollectionDataStore {
         guard #available(iOS 14, *) else {
             return
         }
-        
+
         if let accuracy = accuracy {
             set(key: PlacesConstants.UserDefaults.PERSISTED_ACCURACY, value: accuracy.stringValue)
         } else {

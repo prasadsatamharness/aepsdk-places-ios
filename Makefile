@@ -47,7 +47,7 @@ install-swiftlint:
 	HOMEBREW_NO_AUTO_UPDATE=1 brew install swiftlint && brew cleanup swiftlint
 
 install-githook:
-	./tools/git-hooks/setup.sh
+	./Scripts/git-hooks/setup.sh
 
 lint-autocorrect:
 	(swiftlint autocorrect --format)

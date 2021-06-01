@@ -3,7 +3,7 @@
  This file is licensed to you under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License. You may obtain a copy
  of the License at http://www.apache.org/licenses/LICENSE-2.0
- 
+
  Unless required by applicable law or agreed to in writing, software distributed under
  the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
  OF ANY KIND, either express or implied. See the License for the specific language
@@ -17,7 +17,7 @@ import XCTest
 
 class PlacesPlusPublicApiTests: XCTestCase {
     var extensionContainer: ExtensionContainer!
-    
+
     override func setUp() {
         EventHub.shared = EventHub()
         MockExtension.reset()
@@ -25,37 +25,37 @@ class PlacesPlusPublicApiTests: XCTestCase {
         registerMockExtension(MockExtension.self)
         extensionContainer = EventHub.shared.getExtensionContainer(MockExtension.self)!
     }
-    
+
     // MARK: - helpers
-    
+
     private func registerMockExtension<T: Extension> (_ type: T.Type) {
         let semaphore = DispatchSemaphore(value: 0)
-        EventHub.shared.registerExtension(type) { (error) in
+        EventHub.shared.registerExtension(type) { (_) in
             semaphore.signal()
         }
-        
+
         semaphore.wait()
     }
-    
+
     // MARK: - tests
-    
+
     // MARK: - clear
     func testClear() throws {
         // setup
-        let expectation = XCTestExpectation(description: "clear should dispatch an event")         
+        let expectation = XCTestExpectation(description: "clear should dispatch an event")
         extensionContainer.registerListener(type: EventType.places, source: EventSource.requestContent) { (event) in
             XCTAssertEqual(PlacesConstants.EventDataKey.Places.RequestType.RESET,
                            event.data?[PlacesConstants.EventDataKey.Places.REQUEST_TYPE] as? String)
             expectation.fulfill()
         }
-        
+
         // test
         Places.clear()
-        
+
         // verify
         wait(for: [expectation], timeout: 1)
     }
-        
+
     // MARK: - getCurrentPointsOfInterest
     func testGetCurrentPointsOfInterest() throws {
         // setup
@@ -65,14 +65,14 @@ class PlacesPlusPublicApiTests: XCTestCase {
                            event.data?[PlacesConstants.EventDataKey.Places.REQUEST_TYPE] as? String)
             expectation.fulfill()
         }
-        
+
         // test
         Places.getCurrentPointsOfInterest { _ in }
-        
+
         // verify
         wait(for: [expectation], timeout: 1)
     }
-    
+
     // MARK: - getLastKnownLocation
     func testGetLastKnownLocation() throws {
         // setup
@@ -82,14 +82,14 @@ class PlacesPlusPublicApiTests: XCTestCase {
                            event.data?[PlacesConstants.EventDataKey.Places.REQUEST_TYPE] as? String)
             expectation.fulfill()
         }
-        
+
         // test
         Places.getLastKnownLocation { _ in }
-        
+
         // verify
         wait(for: [expectation], timeout: 1)
     }
-    
+
     // MARK: - getNearbyPointsOfInterest
     func testGetNearbyPointsOfInterest() throws {
         // setup
@@ -103,14 +103,14 @@ class PlacesPlusPublicApiTests: XCTestCase {
             expectation.fulfill()
         }
         let location = CLLocation(latitude: 12.34, longitude: 23.45)
-        
+
         // test
         Places.getNearbyPointsOfInterest(forLocation: location, withLimit: 3) { (_, _) in }
-                
+
         // verify
         wait(for: [expectation], timeout: 1)
     }
-    
+
     // MARK: - processRegionEvent
     func testProcessRegionEvent() throws {
         // setup
@@ -123,14 +123,14 @@ class PlacesPlusPublicApiTests: XCTestCase {
             expectation.fulfill()
         }
         let region = CLCircularRegion(center: CLLocationCoordinate2D(latitude: 12.34, longitude: 23.45), radius: 100, identifier: "id")
-                
+
         // test
         Places.processRegionEvent(.entry, forRegion: region)
-        
+
         // verify
         wait(for: [expectation], timeout: 1)
     }
-    
+
     // MARK: - setAccuracyAuthorization
     @available(iOS 14, *)
     func testSetAccuracyAuthorization() throws {
@@ -142,28 +142,28 @@ class PlacesPlusPublicApiTests: XCTestCase {
             XCTAssertEqual("full", event.data?[PlacesConstants.EventDataKey.Places.ACCURACY] as? String)
             expectation.fulfill()
         }
-        
+
         // test
-        Places.setAccuracyAuthorization(accuracy: .fullAccuracy)
-        
+        Places.setAccuracyAuthorization(.fullAccuracy)
+
         // verify
         wait(for: [expectation], timeout: 1)
     }
-    
-    // MARK: - setAuthorizationStatus    
+
+    // MARK: - setAuthorizationStatus
     func testSetAuthorizationStatus() throws {
         // setup
         let expectation = XCTestExpectation(description: "setAuthorizationStatus should dispatch an event")
         extensionContainer.registerListener(type: EventType.places, source: EventSource.requestContent) { (event) in
             XCTAssertEqual(PlacesConstants.EventDataKey.Places.RequestType.SET_AUTHORIZATION_STATUS,
                            event.data?[PlacesConstants.EventDataKey.Places.REQUEST_TYPE] as? String)
-            XCTAssertEqual("always", event.data?[PlacesConstants.EventDataKey.Places.AUTH_STATUS] as? String)            
+            XCTAssertEqual("always", event.data?[PlacesConstants.EventDataKey.Places.AUTH_STATUS] as? String)
             expectation.fulfill()
         }
-                
+
         // test
-        Places.setAuthorizationStatus(status: .authorizedAlways)
-        
+        Places.setAuthorizationStatus(.authorizedAlways)
+
         // verify
         wait(for: [expectation], timeout: 1)
     }

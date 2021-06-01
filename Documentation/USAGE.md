@@ -1,8 +1,8 @@
 # AEPPlaces Public APIs
 
-This document contains usage information for the public functions, classes, and enums in AEPPlaces.
+This document contains usage information for the public functions, classes, and enums in `AEPPlaces`.
 
-## Static Functions
+## Static functions
 
 - [clear](#clear)
 - [extensionVersion](#extensionVersion)
@@ -11,91 +11,104 @@ This document contains usage information for the public functions, classes, and 
 - [getNearbyPointsOfInterest](#getNearbyPointsOfInterest)
 - [processRegionEvent](#processRegionEvent)
 - [registerExtension](#registerExtension)
+- [setAccuracyAuthorization](#setAccuracyAuthorization)
 - [setAuthorizationStatus](#setAuthorizationStatus)
 
-<hr />
+---
 
 ### clear
 
 Clears out the client-side data for Places in shared state, local storage, and in-memory.
 
 ##### Swift
-<b>Signature:</b>
-```
+
+**Signature**
+```swift
 static func clear()
 ```
-<b>Example Usage:</b>
-```
+
+**Example Usage**
+```swift
 Places.clear()
 ```
 
-##### Objective-c
-<b>Signature:</b>
-```
+##### Objective-C
+
+**Signature**
+```objc
 + (void) clear;
 ```
-<b>Example Usage:</b>
-```
+
+**Example Usage**
+```objc
 [AEPMobilePlaces clear];
 ```
 
-<hr />
+---
 
 ### extensionVersion
 
 Returns the running version of the AEPPlaces extension.
 
 ##### Swift
-<b>Signature:</b>
-```
+
+**Signature**
+```swift
 static var extensionVersion: String
 ```
-<b>Example Usage:</b>
-```
+
+**Example Usage**
+```swift
 let placesVersion = Places.extensionVersion
 ```
 
-##### Objective-c
-<b>Signature:</b>
-```
+##### Objective-C
+
+**Signature**
+```objc
 + (nonnull NSString*) extensionVersion;
 ```
-<b>Example Usage:</b>
-```
+
+**Example Usage**
+```objc
 NSString *placesVersion = [AEPMobilePlaces extensionVersion];
 ```
 
-<hr />
+---
 
 ### getCurrentPointsOfInterest
 
 Returns all Points of Interest (POI) of which the device is currently known to be within.
 
 ##### Swift
-<b>Signature:</b>
-```
+
+**Signature**
+```swift
 static func getCurrentPointsOfInterest(_ closure: @escaping ([PointOfInterest]) -> Void)
 ```
-<b>Example Usage:</b>
-```
+
+**Example Usage**
+```swift
 Places.getCurrentPointsOfInterest() { currentPois in
     print("currentPois: \(currentPois)")
 }
 ```
 
-##### Objective-c
-<b>Signature:</b>
-```
+##### Objective-C
+
+**Signature**
+```objc
 + (void) getCurrentPointsOfInterest: ^(NSArray<AEPPlacesPoi*>* _Nonnull pois) closure;
 ```
-<b>Example Usage:</b>
-```
+
+**Example Usage**
+```objc
 [AEPMobilePlaces getCurrentPointsOfInterest:^(NSArray<AEPPlacesPoi *> *pois) {
     NSLog(@"currentPois: %@", pois);
 }];
 ```
 
-<hr />
+---
 
 ### getLastKnownLocation
 
@@ -104,12 +117,14 @@ Returns the last latitude and longitude provided to the AEPPlaces Extension.
 If the Places Extension does not have a valid last known location for the user, the parameter passed in the closure will be `nil`. The CLLocation object returned by this method will only ever contain valid data for latitude and longitude, and is not meant to be used for plotting course, speed, altitude, etc.
 
 ##### Swift
-<b>Signature:</b>
-```
+
+**Signature**
+```swift
 static func getLastKnownLocation(_ closure: @escaping (CLLocation?) -> Void)
 ```
-<b>Example Usage:</b>
-```
+
+**Example Usage**
+```swift
 Places.getLastKnownLocation() { location in
     if let location = location {
         print("location returned from closure: (\(location.coordinate.latitude), \(location.coordinate.longitude))")
@@ -117,13 +132,15 @@ Places.getLastKnownLocation() { location in
 }
 ```
 
-##### Objective-c
-<b>Signature:</b>
-```
+##### Objective-C
+
+**Signature**
+```objc
 + (void) getLastKnownLocation: ^(CLLocation* _Nullable lastLocation) closure;
 ```
-<b>Example Usage:</b>
-```
+
+**Example Usage**
+```objc
 [AEPMobilePlaces getLastKnownLocation:^(CLLocation *location) {
     if (location) {
         NSLog(@"location returned from closure: (%f, %f)", location.coordinate.latitude, location.coordinate.longitude);
@@ -131,38 +148,41 @@ Places.getLastKnownLocation() { location in
 }];
 ```
 
-<hr />
+---
 
 ### getNearbyPointsOfInterest
 
 Requests a list of nearby Points of Interest (POI) and returns them in a closure.
 
 ##### Swift
-<b>Signature:</b>
-```
+
+**Signature**
+```swift
 static func getNearbyPointsOfInterest(forLocation location: CLLocation,
                                       withLimit limit: UInt,
                                       closure: @escaping ([PointOfInterest], PlacesQueryResponseCode) -> Void)
 ```
-<b>Example Usage:</b>
-```
+
+**Example Usage**
+```swift
 let location = CLLocation(latitude: 40.4350229, longitude: -111.8918356)
 Places.getNearbyPointsOfInterest(forLocation: location, withLimit: 10) { (nearbyPois, responseCode) in    
     print("responseCode: \(responseCode.rawValue) - nearbyPois: \(nearbyPois)")
 }
 ```
 
-##### Objective-c
-<b>Signature:</b>
-```
+##### Objective-C
+
+**Signature**
+```objc
 + (void) getNearbyPointsOfInterest: (nonnull CLLocation*) currentLocation
                              limit: (NSUInteger) limit
                           callback: ^ (NSArray<AEPPlacesPoi*>* _Nonnull, AEPPlacesQueryResponseCode) closure;
 ```
-<b>Example Usage:</b>
-```
-CLLocation *location = [[CLLocation alloc] initWithLatitude:40.4350229 longitude:-111.8918356];
 
+**Example Usage**
+```objc
+CLLocation *location = [[CLLocation alloc] initWithLatitude:40.4350229 longitude:-111.8918356];
 [AEPMobilePlaces getNearbyPointsOfInterest:location
                                      limit:10
                                   callback:^(NSArray<AEPPlacesPoi *> *pois, AEPPlacesQueryResponseCode responseCode) {
@@ -171,7 +191,7 @@ CLLocation *location = [[CLLocation alloc] initWithLatitude:40.4350229 longitude
 }];
 ```
 
-<hr />
+---
 
 ### processRegionEvent
 
@@ -180,13 +200,15 @@ Passes a `CLRegion` and a `PlacesRegionEvent` to be processed by the Places exte
 Calling this method will result in an Event being dispatched to the SDK's EventHub. This enables rule processing based on the triggering region event.
 
 ##### Swift
-<b>Signature:</b>
-```
+
+**Signature**
+```swift
 static func processRegionEvent(_ regionEvent: PlacesRegionEvent,
                                forRegion region: CLRegion)
 ```
-<b>Example Usage:</b>
-```
+
+**Example Usage**
+```swift
 let region = CLCircularRegion(center: CLLocationCoordinate2D(latitude: 40.3886845, longitude: -111.8284979),
                               radius: 100,
                               identifier: "877677e4-3004-46dd-a8b1-a609bd65a428")
@@ -194,14 +216,16 @@ let region = CLCircularRegion(center: CLLocationCoordinate2D(latitude: 40.388684
 Places.processRegionEvent(.entry, forRegion: region)
 ```
 
-##### Objective-c
-<b>Signature:</b>
-```
+##### Objective-C
+
+**Signature**
+```objc
 + (void) processRegionEvent: (AEPRegionEventType) eventType
                   forRegion: (nonnull CLRegion*) region;
 ```
-<b>Example Usage:</b>
-```
+
+**Example Usage**
+```objc
 CLCircularRegion *region = [[CLCircularRegion alloc] initWithCenter:CLLocationCoordinate2DMake(40.3886845, -111.8284979)
                                                              radius:100
                                                          identifier:@"877677e4-3004-46dd-a8b1-a609bd65a428"];
@@ -209,25 +233,59 @@ CLCircularRegion *region = [[CLCircularRegion alloc] initWithCenter:CLLocationCo
 [AEPMobilePlaces processRegionEvent:AEPPlacesRegionEventEntry forRegion:region];
 ```
 
-<hr />
+---
 
 ### registerExtension
 
 This API no longer exists in `AEPPlaces`. Instead, the extension should be registered by calling the `registerExtensions` API in the `MobileCore`.
 
 ##### Swift
-<b>Example:</b>
-```
+
+**Example:**
+```swift
 MobileCore.registerExtensions([Places.self])
 ```
 
-##### Objective-c
-<b>Example:</b>
-```
+##### Objective-C
+
+**Example:**
+```objc
 [AEPMobileCore registerExtensions:@[AEPMobilePlaces.class] completion:nil];
 ```
 
-<hr />
+---
+
+### setAccuracyAuthorization
+
+Sets the accuracy authorization status in the Places extension.
+
+The value provided is stored in the Places shared state, and is for reference only. Calling this method does not impact the actual location accuracy authorization for this device.
+
+##### Swift
+
+**Signature**
+```swift
+static func setAccuracyAuthorization(_ accuracy: CLAccuracyAuthorization)
+```
+
+**Example Usage**
+```swift
+Places.setAccuracyAuthorization(.fullAccuracy)
+```
+
+##### Objective-C
+
+**Signature**
+```objc
++ (void) setAccuracyAuthorization: (CLAccuracyAuthorization) accuracy;
+```
+
+**Example Usage**
+```objc
+[AEPMobilePlaces setAccuracyAuthorization:CLAccuracyAuthorizationFullAccuracy];
+```
+
+---
 
 ### setAuthorizationStatus
 
@@ -235,29 +293,33 @@ Sets the authorization status in the Places extension.
 
 The status provided is stored in the Places shared state, and is for reference only. Calling this method does not impact the actual location authorization status for this device.
 
-> <b>Note</b>: This method should only be called from the `CLLocationManagerDelegate` protocol method  [locationManagerDidChangeAuthorization(_:)](https://developer.apple.com/documentation/corelocation/cllocationmanagerdelegate/3563956-locationmanagerdidchangeauthoriz).
+> **Note**: This method should only be called from the `CLLocationManagerDelegate` protocol method  [locationManagerDidChangeAuthorization(_:)](https://developer.apple.com/documentation/corelocation/cllocationmanagerdelegate/3563956-locationmanagerdidchangeauthoriz).
 
 ##### Swift
-<b>Signature:</b>
+
+**Signature**
+```swift
+static func setAuthorizationStatus(_ status: CLAuthorizationStatus)
 ```
-static func setAuthorizationStatus(status: CLAuthorizationStatus)
-```
-<b>Example Usage:</b>
-```
+
+**Example Usage**
+```swift
 // in the class implementing CLLocationManagerDelegate:
 
 func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-    Places.setAuthorizationStatus(status: manager.authorizationStatus)
+    Places.setAuthorizationStatus(manager.authorizationStatus)
 }
 ```
 
-##### Objective-c
-<b>Signature:</b>
-```
+##### Objective-C
+
+**Signature**
+```objc
 + (void) setAuthorizationStatus: (CLAuthorizationStatus) status;
 ```
-<b>Example Usage:</b>
-```
+
+**Example Usage**
+```objc
 // in the class implementing CLLocationManagerDelegate:
 
 - (void)locationManagerDidChangeAuthorization:(CLLocationManager *)manager {
@@ -265,11 +327,11 @@ func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
 }
 ```
 
-<hr />
+---
 
 ## Additional Classes and Enums
 
-| Type | Swift | Objective-c |
+| Type | Swift | Objective-C |
 | ---- | ----- | ----------- |
 | class | `PointOfInterest` | `AEPPlacesPoi` |
 | enum | `PlacesQueryResponseCode` | `AEPlacesQueryResponseCode` |
