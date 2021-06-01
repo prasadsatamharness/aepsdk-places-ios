@@ -13,8 +13,13 @@
 import CoreLocation
 import Foundation
 
+/// Allows conversion of `CLAccuracyAuthorization` to and from `String`
+/// String values are used in EventData for Places Events and Shared State
 @available(iOS 14, *)
 extension CLAccuracyAuthorization {
+    /// Creates a `CLAccuracyAuthorization` variable from the provided `String` representation
+    /// If the parameter is not a recognized value, this initializer will return `nil`.
+    /// - Parameter fromString: the `String` value representing a `CLAccuracyAuthorization` value
     init?(fromString: String) {
         switch fromString {
         case "full":
