@@ -26,6 +26,11 @@
     [AEPMobilePlaces getNearbyPointsOfInterest:location limit:10 callback:^(NSArray<AEPPlacesPoi *> *pois, AEPPlacesQueryResponseCode responseCode) {
         NSLog(@"responseCode: %ld", (long)responseCode);
         NSLog(@"nearbyPois: %@", pois);
+        if (pois.count > 0) {
+            AEPPlacesPoi *poi = pois[0];
+            NSString *poiName = poi.name;
+            NSString *poiId = poi.identifier;            
+        }
     }];
 }
 
