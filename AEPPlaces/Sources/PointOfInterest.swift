@@ -16,16 +16,16 @@ import AEPServices
 /// Object that represents a Point of Interest created in the Adobe Places UI.
 @objc(AEPPlacesPoi)
 public class PointOfInterest: NSObject {
-    var identifier: String
-    var name: String
-    var latitude: Double
-    var longitude: Double
-    var radius: Int
-    var metaData: [String: String]
-    var userIsWithin: Bool
+    public var identifier: String
+    public var name: String
+    public var latitude: Double
+    public var longitude: Double
+    public var radius: Int
+    public var metaData: [String: String]
+    public var userIsWithin: Bool
 
-    private(set) var libraryId: String
-    private(set) var weight: Int
+    public private(set) var libraryId: String
+    public private(set) var weight: Int
 
     /// Initializes a `PointOfInterest` object from a JSON String.
     ///
