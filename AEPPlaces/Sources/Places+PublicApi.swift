@@ -175,7 +175,7 @@ public extension Places {
     /// - Parameter accuracy: the CLAccuracyAuthorization to be set for this device
     @available(iOS 14, *)
     @objc(setAccuracyAuthorization:)
-    static func setAccuracyAuthorization(accuracy: CLAccuracyAuthorization) {
+    static func setAccuracyAuthorization(_ accuracy: CLAccuracyAuthorization) {
         let eventData: [String: Any] = [
             PlacesConstants.EventDataKey.Places.REQUEST_TYPE: PlacesConstants.EventDataKey.Places.RequestType.SET_ACCURACY,
             PlacesConstants.EventDataKey.Places.ACCURACY: accuracy.stringValue
@@ -196,7 +196,7 @@ public extension Places {
     ///
     /// - Parameter status: the CLAuthorizationStatus to be set for this device
     @objc(setAuthorizationStatus:)
-    static func setAuthorizationStatus(status: CLAuthorizationStatus) {
+    static func setAuthorizationStatus(_ status: CLAuthorizationStatus) {
         let eventData: [String: Any] = [
             PlacesConstants.EventDataKey.Places.REQUEST_TYPE: PlacesConstants.EventDataKey.Places.RequestType.SET_AUTHORIZATION_STATUS,
             PlacesConstants.EventDataKey.Places.AUTH_STATUS: status.stringValue

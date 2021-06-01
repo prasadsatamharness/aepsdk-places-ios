@@ -19,7 +19,7 @@ on:
         default: 'yes'
 
 jobs:
-  release_core_bundle:
+  release_places:
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v2
@@ -71,7 +71,7 @@ jobs:
       if: ${{ github.event.inputs.release_AEPPlaces == 'yes' }}
       run: |
         set -eo pipefail
-        pod trunk push AEPPlaces.podspec --allow-warnings --synchronous --swift-version=5.2
+        pod trunk push AEPPlaces.podspec --allow-warnings --synchronous --swift-version=5.0
         pod repo update
       env:
         COCOAPODS_TRUNK_TOKEN: ${{ secrets.COCOAPODS_TRUNK_TOKEN }}

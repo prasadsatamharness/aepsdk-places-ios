@@ -6,21 +6,21 @@ If explanation beyond showing API differences is necessary, it will be captured 
 
 For example:
 
-> <b>Note</b>: This is information that is important to help clarify the API.
+> **Note**: This is information that is important to help clarify the API.
 
-## Primary Class
+## Primary class
 
 The class name containing public APIs is different depending on which SDK and language combination being used.
 
 | SDK Version | Language | Class Name | Example |
 | ----------- | -------- | ---------- | ------- |
-| ACPPlaces | Objective-c | `ACPPlaces` | `[ACPPlaces clear];`|
-| AEPPlaces | Objective-c | `AEPMobilePlaces` | `[AEPMobilePlaces clear];` |
+| ACPPlaces | Objective-C | `ACPPlaces` | `[ACPPlaces clear];`|
+| AEPPlaces | Objective-C | `AEPMobilePlaces` | `[AEPMobilePlaces clear];` |
 | AEPPlaces | Swift | `Places` | `Places.clear()` |
 
-## Additional Public Classes and Enums
+## Additional public classes and enums
 
-| ACPPlaces (Objective-c) | AEPPlaces (Objective-c) | AEPPlaces (Swift) |
+| ACPPlaces (Objective-C) | AEPPlaces (Objective-C) | AEPPlaces (Swift) |
 | ----------------------- | ----------------------- | ----------------- |
 | `ACPPlacesRequestError` | `AEPPlacesQueryResponseCode` | `PlacesQueryResponseCode` |
 | `ACPPlacesPoi` | `AEPPlacesPoi` | `PointOfInterest` |
@@ -36,98 +36,98 @@ The class name containing public APIs is different depending on which SDK and la
 - [registerExtension](#registerExtension)
 - [setAuthorizationStatus](#setAuthorizationStatus)
 
-<hr />
+---
 
 ### clear
 
-<b>ACPPlaces (Objective-c)</b>
-```
+**ACPPlaces (Objective-C)**
+```objc
 + (void) clear;
 ```
 
-<b>AEPPlaces (Objective-c)</b>
-```
+**AEPPlaces (Objective-C)**
+```objc
 + (void) clear;
 ```
 
-<b>AEPPlaces (Swift)</b>
-```
+**AEPPlaces (Swift)**
+```swift
 static func clear()
 ```
 
-<hr />
+---
 
 ### extensionVersion
 
-<b>ACPPlaces (Objective-c)</b>
-```
+**ACPPlaces (Objective-C)**
+```objc
 + (nonnull NSString*) extensionVersion;
 ```
 
-<b>AEPPlaces (Objective-c)</b>
-```
+**AEPPlaces (Objective-C)**
+```objc
 + (nonnull NSString*) extensionVersion;
 ```
 
-<b>AEPPlaces (Swift)</b>
-```
+**AEPPlaces (Swift)**
+```swift
 static var extensionVersion: String
 ```
 
-<hr />
+---
 
 ### getCurrentPointsOfInterest
 
-<b>ACPPlaces (Objective-c)</b>
-```
+**ACPPlaces (Objective-C)**
+```objc
 + (void) getCurrentPointsOfInterest: (nullable void (^) (NSArray<ACPPlacesPoi*>* _Nullable userWithinPoi)) callback;
 ```
 
-<b>AEPPlaces (Objective-c)</b>
-```
+**AEPPlaces (Objective-C)**
+```objc
 + (void) getCurrentPointsOfInterest: ^(NSArray<AEPPlacesPoi*>* _Nonnull pois) closure;
 ```
 
-<b>AEPPlaces (Swift)</b>
-```
+**AEPPlaces (Swift)**
+```swift
 static func getCurrentPointsOfInterest(_ closure: @escaping ([PointOfInterest]) -> Void)
 ```
 
-<hr />
+---
 
 ### getLastKnownLocation
 
-<b>ACPPlaces (Objective-c)</b>
+**ACPPlaces (Objective-C)**
 
-> <b>Note</b>: If the SDK has no last known location, it will pass a `CLLocation` object with a value of `999.999` for latitude and longitude to the callback.
+> **Note**: If the SDK has no last known location, it will pass a `CLLocation` object with a value of `999.999` for latitude and longitude to the callback.
 
-```
+```objc
 + (void) getLastKnownLocation: (nullable void (^) (CLLocation* _Nullable lastLocation)) callback;
 ```
 
-<b>AEPPlaces (Objective-c)</b>
-```
+**AEPPlaces (Objective-C)**
+```objc
 + (void) getLastKnownLocation: ^(CLLocation* _Nullable lastLocation) closure;
 ```
 
-<b>AEPPlaces (Swift)</b>
+**AEPPlaces (Swift)**
 
-> <b>Note</b>: If the SDK has no last known location, it will pass `nil` to the closure.
+> **Note**: If the SDK has no last known location, it will pass `nil` to the closure.
 
-```
+```swift
 static func getLastKnownLocation(_ closure: @escaping (CLLocation?) -> Void)
 ```
 
-<hr />
+---
 
 ### getNearbyPointsOfInterest
 
 
-<b>ACPPlaces (Objective-c)</b>
+**ACPPlaces (Objective-C)**
 
-> <b>Note</b>: Two `getNearbyPointsOfInterest` methods exist. The overloaded version allows the caller to provide an `errorCallback` parameter in the case of failure.
+> **Note**: Two `getNearbyPointsOfInterest` methods exist. The overloaded version allows the caller to provide an `errorCallback` parameter in the case of failure.
 
-```
+```objc
 // without error handling
 + (void) getNearbyPointsOfInterest: (nonnull CLLocation*) currentLocation
                              limit: (NSUInteger) limit
@@ -140,93 +140,93 @@ static func getLastKnownLocation(_ closure: @escaping (CLLocation?) -> Void)
                      errorCallback: (nullable void (^) (ACPPlacesRequestError result)) errorCallback;
 ```
 
-<b>AEPPlaces (Objective-c)</b>
-```
+**AEPPlaces (Objective-C)**
+```objc
 + (void) getNearbyPointsOfInterest: (nonnull CLLocation*) currentLocation
                              limit: (NSUInteger) limit
                           callback: ^ (NSArray<AEPPlacesPoi*>* _Nonnull, AEPPlacesQueryResponseCode) closure;
 ```
 
-<b>AEPPlaces (Swift)</b>
+**AEPPlaces (Swift)**
 
-> <b>Note</b>: Rather than providing an overloaded method, a single method supports retrieval of nearby Points of Interest. The provided closure accepts two parameters, representing the resulting nearby Points of Interest (if any) and the response code.
+> **Note**: Rather than providing an overloaded method, a single method supports retrieval of nearby Points of Interest. The provided closure accepts two parameters, representing the resulting nearby Points of Interest (if any) and the response code.
 
-```
+```swift
 static func getNearbyPointsOfInterest(forLocation location: CLLocation,
                                       withLimit limit: UInt,
                                       closure: @escaping ([PointOfInterest], PlacesQueryResponseCode) -> Void)
 ```
 
-<hr />
+---
 
 ### processRegionEvent
 
-<b>ACPPlaces (Objective-c)</b>
+**ACPPlaces (Objective-C)**
 
-> <b>Note</b>: The order of parameters has the `CLRegion` that triggered the event first, and the `ACPRegionEventType` second.
+> **Note**: The order of parameters has the `CLRegion` that triggered the event first, and the `ACPRegionEventType` second.
 
-```
+```objc
 + (void) processRegionEvent: (nonnull CLRegion*) region
          forRegionEventType: (ACPRegionEventType) eventType;
 ```
 
-<b>AEPPlaces (Objective-c)</b>
-```
+**AEPPlaces (Objective-C)**
+```objc
 + (void) processRegionEvent: (AEPRegionEventType) eventType
                   forRegion: (nonnull CLRegion*) region;
 ```
 
-<b>AEPPlaces (Swift)</b>
+**AEPPlaces (Swift)**
 
-> <b>Note</b>: The order of parameters has the `PlacesRegionEvent` first, and the `CLRegion` that triggered the event second. This aligns better with Swift API naming conventions.
+> **Note**: The order of parameters has the `PlacesRegionEvent` first, and the `CLRegion` that triggered the event second. This aligns better with Swift API naming conventions.
 
-```
+```swift
 static func processRegionEvent(_ regionEvent: PlacesRegionEvent,
                                forRegion region: CLRegion)
 ```
 
-<hr />
+---
 
 ### registerExtension
 
-<b>ACPPlaces (Objective-c)</b>
-```
+**ACPPlaces (Objective-C)**
+```objc
 + (void) registerExtension;
 ```
 
-<b>AEPPlaces (Objective-c)</b>
+**AEPPlaces (Objective-C)**
 
-> <b>Note</b>: Registration occurs by passing `AEPMobilePlaces` to the `[AEPMobileCore registerExtensions:completion:]` API.
+> **Note**: Registration occurs by passing `AEPMobilePlaces` to the `[AEPMobileCore registerExtensions:completion:]` API.
 
-```
+```objc
 [AEPMobileCore registerExtensions:@[AEPMobilePlaces.class] completion:nil];
 ```
 
-<b>AEPPlaces (Swift)</b>
+**AEPPlaces (Swift)**
 
-> <b>Note</b>: Registration occurs by passing `Places` to the `MobileCore.registerExtensions` API.
+> **Note**: Registration occurs by passing `Places` to the `MobileCore.registerExtensions` API.
 
-```
+```swift
 MobileCore.registerExtensions([Places.self])
 ```
 
-<hr />
+---
 
 ### setAuthorizationStatus
 
-<b>ACPPlaces (Objective-c)</b>
-```
+**ACPPlaces (Objective-C)**
+```objc
 + (void) setAuthorizationStatus: (CLAuthorizationStatus) status;
 ```
 
-<b>AEPPlaces (Objective-c)</b>
-```
+**AEPPlaces (Objective-C)**
+```objc
 + (void) setAuthorizationStatus: (CLAuthorizationStatus) status;
 ```
 
-<b>AEPPlaces (Swift)</b>
-```
-static func setAuthorizationStatus(status: CLAuthorizationStatus)
+**AEPPlaces (Swift)**
+```swift
+static func setAuthorizationStatus(_ status: CLAuthorizationStatus)
 ```
 
-<hr />
+---
