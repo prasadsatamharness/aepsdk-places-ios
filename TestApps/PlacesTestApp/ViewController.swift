@@ -28,6 +28,9 @@ class ViewController: UIViewController {
             if nearbyPois.count > 0 {
                 let poi = nearbyPois[0]
                 _ = poi.identifier
+                if let city = poi.metaData["city"] {
+                    print("city is \(city)")
+                }
             }
         }
     }
