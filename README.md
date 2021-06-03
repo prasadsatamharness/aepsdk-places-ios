@@ -13,7 +13,7 @@ The AEPPlaces extension allows you to track geolocation events as defined in the
 
 ## Requirements
 - Xcode 11.x
-- Swift 5.x
+- Swift 5.1 or newer
 
 ## Installation
 
