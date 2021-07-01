@@ -26,6 +26,11 @@
     [AEPMobilePlaces getNearbyPointsOfInterest:location limit:10 callback:^(NSArray<AEPPlacesPoi *> *pois, AEPPlacesQueryResponseCode responseCode) {
         NSLog(@"responseCode: %ld", (long)responseCode);
         NSLog(@"nearbyPois: %@", pois);
+        if (pois.count > 0) {
+            AEPPlacesPoi *poi = pois[0];
+            NSString *poiName = poi.name;
+            NSString *poiId = poi.identifier;            
+        }
     }];
 }
 
@@ -39,7 +44,7 @@
     [AEPMobilePlaces processRegionEvent:AEPPlacesRegionEventEntry forRegion:region];
 }
 
-- (IBAction) getCurrentPointsOfInterest:(id)sender {
+- (IBAction) getCurrentPointsOfInterest:(id)sender {    
     [AEPMobilePlaces getCurrentPointsOfInterest:^(NSArray<AEPPlacesPoi *> *pois) {
         NSLog(@"currentPois: %@", pois);
     }];
@@ -47,8 +52,16 @@
 
 - (IBAction) getLastKnownLocation:(id)sender {
     [AEPMobilePlaces getLastKnownLocation:^(CLLocation *location) {
-        NSLog(@"location returned from closure: (%f, %f)", location.coordinate.latitude, location.coordinate.longitude);
+        if (location) {
+            NSLog(@"location returned from closure: (%f, %f)", location.coordinate.latitude, location.coordinate.longitude);
+        }
     }];
+}
+
+- (IBAction) setAccuracyAuthorization:(id)sender {
+    if (@available(iOS 14, *)) {
+        [AEPMobilePlaces setAccuracyAuthorization:CLAccuracyAuthorizationFullAccuracy];
+    }    
 }
 
 - (IBAction) setAuthorizationStatus:(id)sender {

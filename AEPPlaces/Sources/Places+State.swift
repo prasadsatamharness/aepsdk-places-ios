@@ -24,9 +24,10 @@ extension Places {
         currentPoi = nil
         lastEnteredPoi = nil
         lastExitedPoi = nil
-        lastKnownLatitude = PlacesConstants.DefaultValues.INVALID_LAT_LON
-        lastKnownLongitude = PlacesConstants.DefaultValues.INVALID_LAT_LON
+        lastKnownCoordinate.latitude = PlacesConstants.DefaultValues.INVALID_LAT_LON
+        lastKnownCoordinate.longitude = PlacesConstants.DefaultValues.INVALID_LAT_LON
         authStatus = .notDetermined
+        accuracy = nil
         membershipValidUntil = nil
 
         updatePersistence()
@@ -78,6 +79,10 @@ extension Places {
             data[PlacesConstants.SharedStateKey.LAST_EXITED_POI] = lastExitedPoi.mapValue
         }
 
+        if #available(iOS 14, *), let accuracy = accuracy {
+            data[PlacesConstants.SharedStateKey.ACCURACY] = accuracy.stringValue
+        }
+
         // add location authorization status string
         data[PlacesConstants.SharedStateKey.AUTH_STATUS] = authStatus.stringValue
 
@@ -94,8 +99,9 @@ extension Places {
         currentPoi = dataStore.currentPoi
         lastEnteredPoi = dataStore.lastEnteredPoi
         lastExitedPoi = dataStore.lastExitedPoi
-        lastKnownLatitude = dataStore.lastKnownLatitude
-        lastKnownLongitude = dataStore.lastKnownLongitude
+        lastKnownCoordinate.latitude = dataStore.lastKnownLatitude
+        lastKnownCoordinate.longitude = dataStore.lastKnownLongitude
+        accuracy = dataStore.accuracy
         authStatus = dataStore.authStatus
         membershipValidUntil = dataStore.membershipValidUntil
     }
@@ -166,7 +172,7 @@ extension Places {
 
             // remove the poi from our userWithinPois list
             userWithinPois.removeValue(forKey: poi.identifier)
-        default:
+        @unknown default:
             Log.trace(label: PlacesConstants.LOG_TAG, "\(#function) processing unknown region event - you shouldn't ever see this!")
             return
         }
@@ -231,9 +237,10 @@ extension Places {
         dataStore.setCurrentPoi(currentPoi)
         dataStore.setLastEnteredPoi(lastEnteredPoi)
         dataStore.setLastExitedPoi(lastExitedPoi)
-        dataStore.setLastKnownLatitude(lastKnownLatitude)
-        dataStore.setLastKnownLongitude(lastKnownLongitude)
+        dataStore.setLastKnownLatitude(lastKnownCoordinate.latitude)
+        dataStore.setLastKnownLongitude(lastKnownCoordinate.longitude)
         dataStore.setAuthStatus(authStatus)
+        dataStore.setAccuracy(accuracy)
         dataStore.setMembershipValidUntil(membershipValidUntil)
     }
 }

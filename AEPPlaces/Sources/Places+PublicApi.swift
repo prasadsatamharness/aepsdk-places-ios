@@ -65,7 +65,7 @@ public extension Places {
         }
     }
 
-    /// Returns the last latitude and longitude provided to the ACPPlaces Extension.
+    /// Returns the last latitude and longitude provided to the AEPPlaces Extension.
     ///
     /// If the Places Extension does not have a valid last known location for the user, the parameter passed
     /// in the closure will be `nil`.
@@ -165,6 +165,30 @@ public extension Places {
         MobileCore.dispatch(event: event)
     }
 
+    /// Sets the accuracy authorization in the Places extension.
+    ///
+    /// The status provided is stored in the Places shared state, and is for reference only.
+    /// Calling this method does not impact the actual location accuracy setting for this device.
+    ///
+    /// This method is only available on iOS 14 and newer.
+    ///
+    /// - Parameter accuracy: the CLAccuracyAuthorization to be set for this device
+    @available(iOS 14, *)
+    @objc(setAccuracyAuthorization:)
+    static func setAccuracyAuthorization(_ accuracy: CLAccuracyAuthorization) {
+        let eventData: [String: Any] = [
+            PlacesConstants.EventDataKey.Places.REQUEST_TYPE: PlacesConstants.EventDataKey.Places.RequestType.SET_ACCURACY,
+            PlacesConstants.EventDataKey.Places.ACCURACY: accuracy.stringValue
+        ]
+
+        let event = Event(name: PlacesConstants.EventName.Request.SET_ACCURACY,
+                          type: EventType.places,
+                          source: EventSource.requestContent,
+                          data: eventData)
+
+        MobileCore.dispatch(event: event)
+    }
+
     /// Sets the authorization status in the Places extension.
     ///
     /// The status provided is stored in the Places shared state, and is for reference only.
@@ -172,7 +196,7 @@ public extension Places {
     ///
     /// - Parameter status: the CLAuthorizationStatus to be set for this device
     @objc(setAuthorizationStatus:)
-    static func setAuthorizationStatus(status: CLAuthorizationStatus) {
+    static func setAuthorizationStatus(_ status: CLAuthorizationStatus) {
         let eventData: [String: Any] = [
             PlacesConstants.EventDataKey.Places.REQUEST_TYPE: PlacesConstants.EventDataKey.Places.RequestType.SET_AUTHORIZATION_STATUS,
             PlacesConstants.EventDataKey.Places.AUTH_STATUS: status.stringValue

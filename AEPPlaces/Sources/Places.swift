@@ -15,6 +15,8 @@ import AEPServices
 import CoreLocation
 import Foundation
 
+/// Places class that extends `Extension` with the Adobe Core EventHub.
+/// Responsible for handling and dispatching `Event`s
 @objc(AEPMobilePlaces)
 public class Places: NSObject, Extension {
     // MARK: - internal properties
@@ -23,11 +25,11 @@ public class Places: NSObject, Extension {
     var currentPoi: PointOfInterest?
     var lastEnteredPoi: PointOfInterest?
     var lastExitedPoi: PointOfInterest?
-    var lastKnownLatitude: Double
-    var lastKnownLongitude: Double
+    var lastKnownCoordinate: CLLocationCoordinate2D
     var membershipTtl: TimeInterval
     var membershipValidUntil: TimeInterval?
     var authStatus: CLAuthorizationStatus
+    var accuracy: CLAccuracyAuthorization?
     var privacyStatus: PrivacyStatus
     var dataStore: NamedCollectionDataStore = NamedCollectionDataStore(name: PlacesConstants.UserDefaults.PLACES_DATA_STORE_NAME)
     var placesQueryService = PlacesQueryService()
@@ -44,8 +46,8 @@ public class Places: NSObject, Extension {
     public required init?(runtime: ExtensionRuntime) {
         self.runtime = runtime
 
-        lastKnownLatitude = PlacesConstants.DefaultValues.INVALID_LAT_LON
-        lastKnownLongitude = PlacesConstants.DefaultValues.INVALID_LAT_LON
+        lastKnownCoordinate = CLLocationCoordinate2D(latitude: PlacesConstants.DefaultValues.INVALID_LAT_LON,
+                                                     longitude: PlacesConstants.DefaultValues.INVALID_LAT_LON)
         authStatus = .notDetermined
         privacyStatus = .unknown
         membershipTtl = PlacesConstants.DefaultValues.MEMBERSHIP_TTL
@@ -58,8 +60,8 @@ public class Places: NSObject, Extension {
         self.runtime = runtime
         self.placesQueryService = queryService
 
-        lastKnownLatitude = PlacesConstants.DefaultValues.INVALID_LAT_LON
-        lastKnownLongitude = PlacesConstants.DefaultValues.INVALID_LAT_LON
+        lastKnownCoordinate = CLLocationCoordinate2D(latitude: PlacesConstants.DefaultValues.INVALID_LAT_LON,
+                                                     longitude: PlacesConstants.DefaultValues.INVALID_LAT_LON)
         authStatus = .notDetermined
         privacyStatus = .unknown
         membershipTtl = PlacesConstants.DefaultValues.MEMBERSHIP_TTL
@@ -86,32 +88,17 @@ public class Places: NSObject, Extension {
     }
 
     // MARK: - Listener Methods
+
+    /// Handles configuration updates, stopping event processing and clearing shared state if the user has opted-out.
+    ///
+    /// - Parameter event: the SharedState update `Event`
     private func handleSharedStateUpdate(_ event: Event) {
-        if event.isConfigSharedStateChange {
-            processConfigurationSharedStateUpdate(event: event)
-        }
-    }
 
-    private func handlePlacesRequest(_ event: Event) {
-        if event.isGetNearbyPlacesRequestType {
-            handleGetNearbyPlacesRequest(event: event)
-        } else if event.isProcessRegionEventRequestType {
-            handleProcessRegionEventRequest(event: event)
-        } else if event.isGetUserWithinPlacesRequestType {
-            getUserWithinPlacesFor(event: event)
-        } else if event.isGetLastKnownLocationRequestType {
-            getLastKnownLocationFor(event: event)
-        } else if event.isSetAuthorizationStatusRequestType {
-            setAuthorizationStatusFrom(event: event)
-        } else if event.isResetRequestType {
-            reset()
-        } else {
-            Log.debug(label: PlacesConstants.LOG_TAG, "Ignoring a Places Request event due to a missing or unrecognized request type.")
+        // for now, we are only handling configuration shared state updates
+        if !event.isConfigSharedStateChange {
+            return
         }
-    }
 
-    // MARK: - Private Methods
-    private func processConfigurationSharedStateUpdate(event: Event) {
         guard let configSharedState = getSharedState(extensionName: PlacesConstants.EventDataKey.Configuration.SHARED_STATE_NAME, event: event) else {
             return
         }
@@ -124,6 +111,33 @@ public class Places: NSObject, Extension {
 
         privacyStatus = configSharedState.globalPrivacy
     }
+
+    /// Handles any Event with a type of `EventType.places`
+    ///
+    /// - Parameter event: the Places `Event` to be handled
+    private func handlePlacesRequest(_ event: Event) {
+        if event.isGetNearbyPlacesRequestType {
+            handleGetNearbyPlacesRequest(event: event)
+        } else if event.isProcessRegionEventRequestType {
+            handleProcessRegionEventRequest(event: event)
+        } else if event.isGetUserWithinPlacesRequestType {
+            getUserWithinPlacesFor(event: event)
+        } else if event.isGetLastKnownLocationRequestType {
+            getLastKnownLocationFor(event: event)
+        } else if event.isSetAuthorizationStatusRequestType {
+            setAuthorizationStatusFrom(event: event)
+        } else if event.isSetAccuracyRequestType {
+            if #available(iOS 14, *) {
+                setAccuracyFrom(event: event)
+            }
+        } else if event.isResetRequestType {
+            reset()
+        } else {
+            Log.debug(label: PlacesConstants.LOG_TAG, "Ignoring a Places Request event due to a missing or unrecognized request type.")
+        }
+    }
+
+    // MARK: - Private Methods
 
     private func handleGetNearbyPlacesRequest(event: Event) {
         // make sure the user isn't opted-out
@@ -166,8 +180,8 @@ public class Places: NSObject, Extension {
         }
 
         // update some of our state values
-        lastKnownLatitude = latitude
-        lastKnownLongitude = longitude
+        lastKnownCoordinate.latitude = latitude
+        lastKnownCoordinate.longitude = longitude
         membershipTtl = placesConfig.membershipTtl
         updateMembershipValidUntil()
 
@@ -252,10 +266,7 @@ public class Places: NSObject, Extension {
         Log.trace(label: PlacesConstants.LOG_TAG, "Getting user-within Points of Interest.")
 
         // convert the map of userWithinPois to an array to put in the eventData
-        var userWithinPoiArray: [[String: Any]] = []
-        for poi in userWithinPois.values {
-            userWithinPoiArray.append(poi.mapValue)
-        }
+        let userWithinPoiArray = userWithinPois.values.map({$0.mapValue})
 
         let eventData = [
             PlacesConstants.SharedStateKey.USER_WITHIN_POIS: userWithinPoiArray
@@ -271,8 +282,8 @@ public class Places: NSObject, Extension {
         Log.trace(label: PlacesConstants.LOG_TAG, "Getting last know user location.")
 
         let eventData = [
-            PlacesConstants.EventDataKey.Places.LATITUDE: lastKnownLatitude,
-            PlacesConstants.EventDataKey.Places.LONGITUDE: lastKnownLongitude
+            PlacesConstants.EventDataKey.Places.LATITUDE: lastKnownCoordinate.latitude,
+            PlacesConstants.EventDataKey.Places.LONGITUDE: lastKnownCoordinate.longitude
         ]
 
         dispatchResponseEventWith(name: PlacesConstants.EventName.Response.GET_LAST_KNOWN_LOCATION,
@@ -286,6 +297,15 @@ public class Places: NSObject, Extension {
             authStatus = CLAuthorizationStatus(fromString: status)
             createSharedState(data: getSharedStateData(), event: event)
             Log.debug(label: PlacesConstants.LOG_TAG, "Setting location authorization status for Places: \(authStatus.stringValue)")
+        }
+    }
+
+    @available(iOS 14, *)
+    private func setAccuracyFrom(event: Event) {
+        if let eventAccuracy = event.locationAccuracy, let newAccuracy = CLAccuracyAuthorization(fromString: eventAccuracy) {
+            accuracy = newAccuracy
+            createSharedState(data: getSharedStateData(), event: event)
+            Log.debug(label: PlacesConstants.LOG_TAG, "Setting location accuracy for Places: \(newAccuracy.stringValue)")
         }
     }
 

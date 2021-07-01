@@ -38,7 +38,6 @@ archive:
 	xcodebuild -create-xcframework -framework $(SIMULATOR_ARCHIVE_PATH)$(EXTENSION_NAME).framework -framework $(IOS_ARCHIVE_PATH)$(EXTENSION_NAME).framework -output ./build/$(TARGET_NAME_XCFRAMEWORK)
 
 test:
-	#(mkdir -p build/out/test)
 	@echo "######################################################################"
 	@echo "### Unit Testing iOS"
 	@echo "######################################################################"
@@ -48,13 +47,13 @@ install-swiftlint:
 	HOMEBREW_NO_AUTO_UPDATE=1 brew install swiftlint && brew cleanup swiftlint
 
 install-githook:
-	./tools/git-hooks/setup.sh
+	./Scripts/git-hooks/setup.sh
 
 lint-autocorrect:
 	(swiftlint autocorrect --format)
 
 lint:
-	(swiftlint lint Sources SampleApps/$(APP_NAME))
+	(swiftlint lint Sources TestApps/$(APP_NAME))
 
 build-test-apps:
 	xcodebuild -workspace $(PROJECT_NAME).xcworkspace -scheme $(APP_NAME) -destination 'platform=iOS Simulator,name=iPhone 8'
@@ -62,3 +61,13 @@ build-test-apps:
 
 swift-build:
 	swift build -Xswiftc "-sdk" -Xswiftc "`xcrun --sdk iphonesimulator --show-sdk-path`" -Xswiftc "-target" -Xswiftc "x86_64-apple-ios10.0-simulator"
+
+# make check-version VERSION=3.1.0
+check-version:
+	(sh ./Scripts/version.sh $(VERSION))
+
+test-spm-integration:
+	(sh ./Scripts/test-spm.sh)
+
+test-podspec:
+	(sh ./Scripts/test-podspec.sh)

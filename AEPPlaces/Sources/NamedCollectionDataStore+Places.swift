@@ -14,8 +14,10 @@ import AEPServices
 import CoreLocation
 import Foundation
 
+/// Provides getters and setters for Places values that are persisted in a `NamedCollectionDataStore`
 extension NamedCollectionDataStore {
     // MARK: - Getters
+
     var nearbyPois: [String: PointOfInterest] {
         if let persistedPois = getDictionary(key: PlacesConstants.UserDefaults.PERSISTED_NEARBY_POIS) as? [String: String] {
             var tempPois: [String: PointOfInterest] = [:]
@@ -66,6 +68,18 @@ extension NamedCollectionDataStore {
         return getDouble(key: PlacesConstants.UserDefaults.PERSISTED_LONGITUDE) ?? PlacesConstants.DefaultValues.INVALID_LAT_LON
     }
 
+    var accuracy: CLAccuracyAuthorization? {
+        guard #available(iOS 14, *) else {
+            return nil
+        }
+
+        if let persistedAccuracy = getString(key: PlacesConstants.UserDefaults.PERSISTED_ACCURACY) {
+            return CLAccuracyAuthorization(fromString: persistedAccuracy)
+        }
+
+        return nil
+    }
+
     var authStatus: CLAuthorizationStatus {
         return CLAuthorizationStatus.init(fromString: getString(key: PlacesConstants.UserDefaults.PERSISTED_AUTH_STATUS) ?? "")
     }
@@ -75,6 +89,7 @@ extension NamedCollectionDataStore {
     }
 
     // MARK: - Setters
+
     func setNearbyPois(_ pois: [String: PointOfInterest]) {
         if !pois.isEmpty {
             var poiStringMap: [String: String] = [:]
@@ -136,6 +151,18 @@ extension NamedCollectionDataStore {
             set(key: PlacesConstants.UserDefaults.PERSISTED_LONGITUDE, value: lon)
         } else {
             remove(key: PlacesConstants.UserDefaults.PERSISTED_LONGITUDE)
+        }
+    }
+
+    func setAccuracy(_ accuracy: CLAccuracyAuthorization?) {
+        guard #available(iOS 14, *) else {
+            return
+        }
+
+        if let accuracy = accuracy {
+            set(key: PlacesConstants.UserDefaults.PERSISTED_ACCURACY, value: accuracy.stringValue)
+        } else {
+            remove(key: PlacesConstants.UserDefaults.PERSISTED_ACCURACY)
         }
     }
 

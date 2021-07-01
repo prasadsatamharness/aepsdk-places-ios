@@ -12,6 +12,7 @@
 
 import Foundation
 
+/// Represents a specific outcome resulting from an interaction with the Places Query Service.
 @objc(AEPPlacesQueryResponseCode)
 public enum PlacesQueryResponseCode: Int {
     case ok = 0

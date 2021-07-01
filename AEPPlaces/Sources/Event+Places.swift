@@ -13,6 +13,7 @@
 import Foundation
 import AEPCore
 
+/// Extension class providing streamlined access to data in `Event` objects.
 extension Event {
     // MARK: - Event Type/Source/Owner Detection
     var isPlacesRequestEvent: Bool {
@@ -38,6 +39,10 @@ extension Event {
 
     var locationAuthorizationStatus: String? {
         return data?[PlacesConstants.EventDataKey.Places.AUTH_STATUS] as? String
+    }
+
+    var locationAccuracy: String? {
+        return data?[PlacesConstants.EventDataKey.Places.ACCURACY] as? String
     }
 
     // MARK: - Request Type handling
@@ -67,6 +72,10 @@ extension Event {
 
     var isSetAuthorizationStatusRequestType: Bool {
         return placesRequestType == PlacesConstants.EventDataKey.Places.RequestType.SET_AUTHORIZATION_STATUS
+    }
+
+    var isSetAccuracyRequestType: Bool {
+        return placesRequestType == PlacesConstants.EventDataKey.Places.RequestType.SET_ACCURACY
     }
 
     // MARK: - Get Nearby Places
