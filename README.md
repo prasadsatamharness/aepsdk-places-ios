@@ -50,7 +50,7 @@ Alternatively, if your project has a `Package.swift` file, you can add AEPPlaces
 
 ```
 dependencies: [
-    .package(url: "https://github.com/adobe/aepsdk-places-ios.git", from: "3.0.0")
+    .package(url: "https://github.com/adobe/aepsdk-places-ios.git", upToNextMajor(from: "3.0.0"))
 ],
 targets: [
     .target(name: "YourTarget",
