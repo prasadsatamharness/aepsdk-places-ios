@@ -44,4 +44,13 @@ public enum PlacesRegionEvent: Int {
             return nil
         }
     }
+    
+    public func toExperienceEventType() -> String {
+        switch self {
+        case .entry:
+            return PlacesConstants.XDM.Location.EventType.ENTRY
+        case .exit:
+            return PlacesConstants.XDM.Location.EventType.EXIT
+        }
+    }
 }
