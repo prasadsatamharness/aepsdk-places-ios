@@ -345,7 +345,7 @@ func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
 | latitude | Double |
 | libraryId | String |
 | longitude | Double |
-| metaData | [String: String] |
+| metaData | [String: Any] |
 | name | String |
 | radius | Int |
 | userIsWithin | Bool |

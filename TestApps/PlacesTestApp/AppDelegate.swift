@@ -29,9 +29,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         MobileCore.configureWith(appId: "launch-EN459260fc579a4dcbb2d1743947e65f09-development")
         
         let appState = application.applicationState
-        MobileCore.registerExtensions([Places.self, Signal.self, Analytics.self, Identity.self, Lifecycle.self, AEPAssurance.self]) {
+        MobileCore.registerExtensions([Places.self, Signal.self, Analytics.self, Identity.self, Lifecycle.self, Assurance.self]) {
             // Griffon Session - AEPPlaces in Adobe Benedick Corp
-            AEPAssurance.startSession(URL(string: "aepplaces://?adb_validation_sessionid=ecc9abb0-9028-4312-bc1d-a16920353e79")!)
+            Assurance.startSession(url: URL(string: "aepplaces://?adb_validation_sessionid=ecc9abb0-9028-4312-bc1d-a16920353e79")!)
             
             if appState != .background {
                 MobileCore.lifecycleStart(additionalContextData: nil)

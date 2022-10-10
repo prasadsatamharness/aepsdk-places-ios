@@ -26,7 +26,11 @@ class PointOfInterestTests: XCTestCase {
         "libraryid": "mylib",
         "useriswithin": false,
         "regionmetadata": {
-            "key1": "value1"
+            "stringKey": "value1",
+            "intKey": 9,
+            "doubleKey": 55.2,
+            "boolKey": true,
+            "nullKey": null
         }
     }
     """
@@ -105,8 +109,12 @@ class PointOfInterestTests: XCTestCase {
         XCTAssertEqual(23.45, poi.longitude)
         XCTAssertEqual(500, poi.radius)
         XCTAssertEqual(false, poi.userIsWithin)
-        XCTAssertEqual(1, poi.metaData.count)
-        XCTAssertEqual("value1", poi.metaData["key1"])
+        XCTAssertEqual(5, poi.metaData.count)
+        XCTAssertEqual("value1", poi.metaData["stringKey"] as? String)
+        XCTAssertEqual(9, poi.metaData["intKey"] as? Int)
+        XCTAssertEqual(55.2, poi.metaData["doubleKey"] as? Double)
+        XCTAssertEqual(true, poi.metaData["boolKey"] as? Bool)
+        XCTAssertEqual(NSNull.init(), poi.metaData["nullKey"] as? NSNull)
     }
     
     func testConstructorFromJsonStringEmptyJson() throws {
@@ -144,7 +152,7 @@ class PointOfInterestTests: XCTestCase {
         XCTAssertEqual(500, poi.radius)
         XCTAssertEqual(false, poi.userIsWithin)
         XCTAssertEqual(1, poi.metaData.count)
-        XCTAssertEqual("value1", poi.metaData["key1"])
+        XCTAssertEqual("value1", poi.metaData["key1"] as? String)
     }
     
     func testConstructorFromJsonObjectHappyUserWithin() throws {
@@ -160,7 +168,7 @@ class PointOfInterestTests: XCTestCase {
         XCTAssertEqual(500, poi.radius)
         XCTAssertEqual(true, poi.userIsWithin)
         XCTAssertEqual(1, poi.metaData.count)
-        XCTAssertEqual("value1", poi.metaData["key1"])
+        XCTAssertEqual("value1", poi.metaData["key1"] as? String)
     }
     
     func testConstructorFromJsonObjectIncorrectJsonArrayData() throws {

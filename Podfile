@@ -32,8 +32,7 @@ def test_main
     pod 'AEPIdentity'
     pod 'AEPLifecycle'
     pod 'AEPSignal'
-    pod 'AEPAssurance'
-    pod 'ACPCore', :git => 'https://github.com/adobe/aep-sdk-compatibility-ios.git', :branch => 'main'
+    pod 'AEPAssurance'    
 end
 
 # test app against dev branches
@@ -43,8 +42,7 @@ def test_dev
     pod 'AEPIdentity', :git => 'https://github.com/adobe/aepsdk-core-ios.git', :branch => 'dev-v3.1.2'
     pod 'AEPLifecycle', :git => 'https://github.com/adobe/aepsdk-core-ios.git', :branch => 'dev-v3.1.2'
     pod 'AEPSignal', :git => 'https://github.com/adobe/aepsdk-core-ios.git', :branch => 'dev-v3.1.2'
-    pod 'AEPAssurance' #todo - get a link to this repo once it's public
-    pod 'ACPCore', :git => 'https://github.com/adobe/aep-sdk-compatibility-ios.git', :branch => 'main'
+    pod 'AEPAssurance', :git => 'https://github.com/adobe/aepsdk-assurance-ios.git', :branch => 'main'
 end
 
 # ==================
