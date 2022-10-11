@@ -25,7 +25,7 @@ To generate `AEPPlaces.xcframework`, run the following command from the root dir
 make archive
 ```
 
-This will generate an XCFramework under the `build` folder. Drag and drop `AEPPlaces.xcframework` to your app target.
+This will do a `pod install` then generate an XCFramework under the `build` folder. Drag and drop `AEPPlaces.xcframework` to your app target.
 
 ### [CocoaPods](https://guides.cocoapods.org/using/using-cocoapods.html)
 
