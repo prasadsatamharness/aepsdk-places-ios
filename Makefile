@@ -43,17 +43,22 @@ test:
 	@echo "######################################################################"
 	xcodebuild test -workspace $(PROJECT_NAME).xcworkspace -scheme $(PROJECT_NAME) -destination 'platform=iOS Simulator,name=iPhone 8' -derivedDataPath build/out -enableCodeCoverage YES
 
-install-swiftlint:
-	HOMEBREW_NO_AUTO_UPDATE=1 brew install swiftlint && brew cleanup swiftlint
-
 install-githook:
 	./Scripts/git-hooks/setup.sh
 
+format: swift-format lint-autocorrect
+
+install-swiftformat:
+	(brew install swiftformat)
+
+swift-format:
+	(swiftformat $(PROJECT_NAME)/Sources --swiftversion 5.1)
+
 lint-autocorrect:
-	(swiftlint autocorrect --format)
+	(./Pods/SwiftLint/swiftlint --fix $(PROJECT_NAME)/Sources --format)
 
 lint:
-	(swiftlint lint Sources TestApps/$(APP_NAME))
+	(./Pods/SwiftLint/swiftlint lint $(PROJECT_NAME)/Sources)
 
 build-test-apps:
 	xcodebuild -workspace $(PROJECT_NAME).xcworkspace -scheme $(APP_NAME) -destination 'platform=iOS Simulator,name=iPhone 8'
