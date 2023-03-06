@@ -78,4 +78,4 @@ test-podspec:
 	(sh ./Scripts/test-podspec.sh)
 
 test-update-versions:
-	(sh ./Scripts/update-versions.sh -n Places -v 9.9.9 -d "AEPCore 8.8.8")
+	(sh ./Scripts/update-versions.sh -n Places -v 9.9.9 -d "AEPCore 8.8.8, AEPServices 8.8.8")
