@@ -34,7 +34,7 @@ jobs:
         ref: ${{ github.event.inputs.branch }}
     
     - name: Update AEPPlaces
-      run: (sh ./Scripts/update-versions.sh -n Places -v ${{ github.event.inputs.version }} -d "AEPCore ${{ github.event.inputs.core-dependency }} AEPServices ${{ github.event.inputs.core-dependency }}")
+      run: (sh ./Scripts/update-versions.sh -n Places -v ${{ github.event.inputs.version }} -d "AEPCore ${{ github.event.inputs.core-dependency }}, AEPServices ${{ github.event.inputs.core-dependency }}")
 
     - name: Create Pull Request
       uses: peter-evans/create-pull-request@v4.2.3
