@@ -45,7 +45,7 @@ class PlacesQueryService {
         components.queryItems?.append(contentsOf: [
             URLQueryItem(name: PlacesConstants.QueryService.Json.LATITUDE, value: String(lat)),
             URLQueryItem(name: PlacesConstants.QueryService.Json.LONGITUDE, value: String(lon)),
-            URLQueryItem(name: PlacesConstants.QueryService.Json.LIMIT, value: String(count))
+            URLQueryItem(name: PlacesConstants.QueryService.Json.LIMIT, value: String(count)),
         ])
 
         guard let url = components.url else {
