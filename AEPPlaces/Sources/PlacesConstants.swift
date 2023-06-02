@@ -168,7 +168,7 @@ enum PlacesConstants {
             static let COORDINATES = "coordinates"
 
             static let POI_ID = "poiID"
-            static let NAME = "name"
+            static let POI_NAME = "poiName"
             static let LATITUDE = "latitude"
             static let LONGITUDE = "longitude"
             static let RADIUS = "radius"
@@ -179,7 +179,7 @@ enum PlacesConstants {
             static let STATE_PROVINCE = "stateProvince"
             static let CATEGORY = "category"
 
-            static let METADATA = "metadata"
+            static let POI_METADATA = "poiMetadata"
             static let LIST = "list"
             static let KEY = "key"
             static let VALUE = "value"
