@@ -1,12 +1,13 @@
 export EXTENSION_NAME = AEPPlaces
 export APP_NAME = PlacesTestApp
 export APP_NAME_OBJC = PlacesTestApp_objc
+CURRENT_DIRECTORY := ${CURDIR}
 PROJECT_NAME = $(EXTENSION_NAME)
 TARGET_NAME_XCFRAMEWORK = $(EXTENSION_NAME).xcframework
 SCHEME_NAME_XCFRAMEWORK = AEPPlacesXCF
 
-SIMULATOR_ARCHIVE_PATH = ./build/ios_simulator.xcarchive/Products/Library/Frameworks/
-IOS_ARCHIVE_PATH = ./build/ios.xcarchive/Products/Library/Frameworks/
+SIMULATOR_ARCHIVE_PATH = $(CURRENT_DIRECTORY)/build/ios_simulator.xcarchive/Products/Library/Frameworks/
+IOS_ARCHIVE_PATH = $(CURRENT_DIRECTORY)/build/ios.xcarchive/Products/Library/Frameworks/
 
 setup:
 	(pod install)
