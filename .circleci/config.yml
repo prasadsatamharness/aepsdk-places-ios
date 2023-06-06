@@ -105,8 +105,8 @@ jobs:
       # See options explanation here: https://docs.codecov.com/docs/codecov-uploader
       - codecov/upload:
           flags: aepplaces-ios-tests
-          upload_name: Coverage Report for AEPMessaging iOS Tests
-          xtra_args: -c -v --xc --xp ./build/AEPMessaging.xcresult
+          upload_name: Coverage Report for AEPPlaces iOS Tests
+          xtra_args: -c -v --xc --xp ./build/AEPPlaces.xcresult
 
   test-spm-podspec-archive:  
     macos:
