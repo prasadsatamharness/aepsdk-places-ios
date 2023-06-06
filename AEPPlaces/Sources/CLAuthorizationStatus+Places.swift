@@ -31,6 +31,7 @@ extension CLAuthorizationStatus {
             self = .restricted
         case "unknown":
             self = .notDetermined
+
         default:
             self = .notDetermined
         }

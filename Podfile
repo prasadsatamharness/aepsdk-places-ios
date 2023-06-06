@@ -1,5 +1,5 @@
 # Uncomment the next line to define a global platform for your project
-platform :ios, '10.0'
+platform :ios, '11.0'
 
 # Comment the next line if you don't want to use dynamic frameworks
 use_frameworks!
@@ -10,7 +10,7 @@ install! 'cocoapods', :warn_for_unused_master_specs_repo => false
 workspace 'AEPPlaces'
 project 'AEPPlaces.xcodeproj'
 
-pod 'SwiftLint', '0.44.0'
+pod 'SwiftLint', '0.52.0'
 
 # ==================
 # SHARED POD GROUPS
@@ -23,8 +23,8 @@ end
 
 # development against dev branches of dependencies
 def dev_dev
-    pod 'AEPCore', :git => 'https://github.com/adobe/aepsdk-core-ios.git', :branch => 'dev-v3.1.2'
-    pod 'AEPServices', :git => 'https://github.com/adobe/aepsdk-core-ios.git', :branch => 'dev-v3.1.2'
+    pod 'AEPCore', :git => 'https://github.com/adobe/aepsdk-core-ios.git', :branch => 'dev-v4.0.0'
+    pod 'AEPServices', :git => 'https://github.com/adobe/aepsdk-core-ios.git', :branch => 'dev-v4.0.0'
 end
 
 # test app against main branches
@@ -40,11 +40,11 @@ end
 # test app against dev branches
 def test_dev
     dev_dev
-    pod 'AEPAnalytics', :git => 'https://github.com/adobe/aepsdk-analytics-ios.git', :branch => 'dev-v3.0.2'
-    pod 'AEPIdentity', :git => 'https://github.com/adobe/aepsdk-core-ios.git', :branch => 'dev-v3.1.2'
-    pod 'AEPLifecycle', :git => 'https://github.com/adobe/aepsdk-core-ios.git', :branch => 'dev-v3.1.2'
-    pod 'AEPSignal', :git => 'https://github.com/adobe/aepsdk-core-ios.git', :branch => 'dev-v3.1.2'
-    pod 'AEPAssurance', :git => 'https://github.com/adobe/aepsdk-assurance-ios.git', :branch => 'main'
+    pod 'AEPAnalytics', :git => 'https://github.com/adobe/aepsdk-analytics-ios.git', :branch => 'dev-v4.0.0'
+    pod 'AEPIdentity', :git => 'https://github.com/adobe/aepsdk-core-ios.git', :branch => 'dev-v4.0.0'
+    pod 'AEPLifecycle', :git => 'https://github.com/adobe/aepsdk-core-ios.git', :branch => 'dev-v4.0.0'
+    pod 'AEPSignal', :git => 'https://github.com/adobe/aepsdk-core-ios.git', :branch => 'dev-v4.0.0'
+    pod 'AEPAssurance', :git => 'https://github.com/adobe/aepsdk-assurance-ios.git', :branch => 'dev-v4.0.0'
 end
 
 # ==================

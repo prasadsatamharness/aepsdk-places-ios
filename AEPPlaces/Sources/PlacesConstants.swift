@@ -14,15 +14,15 @@ import Foundation
 
 enum PlacesConstants {
     static let EXTENSION_NAME = "com.adobe.module.places"
-    static let EXTENSION_VERSION = "3.0.3"
+    static let EXTENSION_VERSION = "4.0.0"
     static let FRIENDLY_NAME = "Places"
     static let LOG_TAG = "Places"
 
     enum DefaultValues {
-        static let MEMBERSHIP_TTL: TimeInterval = 60 * 60  // 1 hour in seconds
-        static let NEARBY_POI_COUNT             = 10
-        static let RADIUS                       = 1000     // 1 km
-        static let INVALID_LAT_LON              = 999.999
+        static let MEMBERSHIP_TTL: TimeInterval = 60 * 60 // 1 hour in seconds
+        static let NEARBY_POI_COUNT = 10
+        static let RADIUS = 1_000 // 1 km
+        static let INVALID_LAT_LON = 999.999
     }
 
     enum UserDefaults {

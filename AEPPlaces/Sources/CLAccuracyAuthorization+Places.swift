@@ -26,6 +26,7 @@ extension CLAccuracyAuthorization {
             self = .fullAccuracy
         case "reduced":
             self = .reducedAccuracy
+
         default:
             return nil
         }

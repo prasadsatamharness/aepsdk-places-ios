@@ -39,6 +39,7 @@ public enum PlacesRegionEvent: Int {
             return .entry
         case "exit":
             return .exit
+
         default:
             return nil
         }
