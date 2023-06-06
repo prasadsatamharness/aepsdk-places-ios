@@ -33,12 +33,15 @@ opt_in_rules:
 disabled_rules: # rule identifiers to exclude from running
   - nesting
   - trailingCommas
+  - force_unwrapping 
 excluded: # paths to ignore during linting. Takes precedence over `included`.
   - Pods
   - Package.swift
 identifier_name:
     allowed_symbols: "_"
     excluded:
+        - ID
+        - ok
         - id
 line_length:
     warning: 200
@@ -58,4 +61,8 @@ type_body_length:
     error: 500
 analyzer_rules:
   - unused_import
-  - unused_declaration
+  - unused_declaration 
+cyclomatic_complexity:
+    ignores_case_statements: true
+    warning: 12
+    error: 15 

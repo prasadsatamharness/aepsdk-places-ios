@@ -36,10 +36,12 @@ clean:
 clean-ios-test-files:
 	rm -rf iosresults.xcresult
 
-archive: clean pod-install build
+archive: clean pod-install build	
+	xcodebuild -create-xcframework -framework $(SIMULATOR_ARCHIVE_PATH)$(EXTENSION_NAME).framework -framework $(IOS_ARCHIVE_PATH)$(EXTENSION_NAME).framework -output ./build/$(TARGET_NAME_XCFRAMEWORK)
+
+build:
 	xcodebuild archive -workspace $(PROJECT_NAME).xcworkspace -scheme $(SCHEME_NAME_XCFRAMEWORK) -archivePath "./build/ios.xcarchive" -sdk iphoneos -destination="iOS" SKIP_INSTALL=NO BUILD_LIBRARIES_FOR_DISTRIBUTION=YES
 	xcodebuild archive -workspace $(PROJECT_NAME).xcworkspace -scheme $(SCHEME_NAME_XCFRAMEWORK) -archivePath "./build/ios_simulator.xcarchive" -sdk iphonesimulator -destination="iOS Simulator" SKIP_INSTALL=NO BUILD_LIBRARIES_FOR_DISTRIBUTION=YES
-	xcodebuild -create-xcframework -framework $(SIMULATOR_ARCHIVE_PATH)$(EXTENSION_NAME).framework -framework $(IOS_ARCHIVE_PATH)$(EXTENSION_NAME).framework -output ./build/$(TARGET_NAME_XCFRAMEWORK)
 
 test:
 	@echo "######################################################################"
@@ -53,20 +55,14 @@ install-githook:
 format: swift-format lint-autocorrect
 
 check-format:
-	(swiftformat --lint $(PROJECT_NAME)/Sources --swiftversion 5.1)
+	swiftformat --lint $(PROJECT_NAME)/Sources --swiftversion 5.1
 
-
-install-swiftformat:
-	(brew install swiftformat)
-
-swift-format:
-	(swiftformat $(PROJECT_NAME)/Sources --swiftversion 5.1)
 
 lint-autocorrect:
-	(./Pods/SwiftLint/swiftlint --fix $(PROJECT_NAME)/Sources --format)
+	./Pods/SwiftLint/swiftlint --fix $(PROJECT_NAME)/Sources
 
 lint:
-	(./Pods/SwiftLint/swiftlint lint $(PROJECT_NAME)/Sources)
+	./Pods/SwiftLint/swiftlint lint $(PROJECT_NAME)/Sources
 
 build-test-apps:
 	xcodebuild -workspace $(PROJECT_NAME).xcworkspace -scheme $(APP_NAME) -destination 'platform=iOS Simulator,name=iPhone 8'

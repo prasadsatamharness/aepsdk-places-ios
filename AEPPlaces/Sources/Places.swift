@@ -330,7 +330,9 @@ public class Places: NSObject, Extension {
             PlacesConstants.EventDataKey.Places.REGION_EVENT_TYPE: type.stringValue
         ]
         let event = Event(name: PlacesConstants.EventName.Response.PROCESS_REGION_EVENT,
-                          type: EventType.places, source: EventSource.responseContent, data: eventData)
+                          type: EventType.places,
+                          source: EventSource.responseContent,
+                          data: eventData)
 
         createSharedState(data: getSharedStateData(), event: nil)
         dispatch(event: event)
