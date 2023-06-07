@@ -18,7 +18,6 @@ import Foundation
 /// Defines the public interface for the Places extension.
 @objc
 public extension Places {
-
     /// Clears out the client-side data for Places in shared state, local storage, and in-memory.
     static func clear() {
         let eventData: [String: Any] = [
