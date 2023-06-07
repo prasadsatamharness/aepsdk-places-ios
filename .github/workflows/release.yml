@@ -51,7 +51,7 @@ jobs:
       run: |
         set -eo pipefail
         echo SPM integration test starts:
-        make test-spm-integration
+        make test-SPM-integration
 
     - name: podspec file verification
       if: ${{ github.event.inputs.action_tag == 'yes' }}

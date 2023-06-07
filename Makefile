@@ -72,7 +72,7 @@ build-test-apps:
 check-version:
 	(sh ./Scripts/version.sh $(VERSION))
 
-test-spm-integration:
+test-SPM-integration:
 	(sh ./Scripts/test-spm.sh)
 
 test-podspec:
