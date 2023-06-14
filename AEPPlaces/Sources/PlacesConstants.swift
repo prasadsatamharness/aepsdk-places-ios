@@ -153,42 +153,19 @@ enum PlacesConstants {
             static let EVENT_TYPE = "eventType"
             static let XDM = "xdm"
 
-            static let META = "meta"
-            static let COLLECT = "collect"
-            static let DATASET_ID = "datasetId"
-
             static let PLACE_CONTEXT = "placeContext"
             static let POI_INTERACTION = "POIinteraction"
             static let POI_DETAIL = "poiDetail"
-            static let GEO_INTERACTION_DETAILS = "geoInteractionDetails"
-            static let GEO_SHAPE = "geoShape"
-            static let SCHEMA = "_schema"
-            static let GEO = "geo"
-            static let CIRCLE = "circle"
-            static let COORDINATES = "coordinates"
 
             static let POI_ID = "poiID"
-            static let POI_NAME = "poiName"
-            static let LATITUDE = "latitude"
-            static let LONGITUDE = "longitude"
-            static let RADIUS = "radius"
-
-            static let COUNTRY_CODE = "countryCode"
-            static let CITY = "city"
-            static let POSTAL_CODE = "postalCode"
-            static let STATE_PROVINCE = "stateProvince"
-            static let CATEGORY = "category"
-
-            static let POI_METADATA = "poiMetadata"
+            static let POI_NAME = "name"
+            static let POI_METADATA = "metadata"
             static let LIST = "list"
             static let KEY = "key"
             static let VALUE = "value"
 
-            static let POIENTRIES = "poiEntries"
-            static let POIEXITS = "poiExits"
             static let ID = "id"
 
-            static let NAMESPACE = "_aemonacpprodcampaign"
         }
 
         enum Location {

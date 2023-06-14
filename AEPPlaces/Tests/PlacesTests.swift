@@ -680,32 +680,14 @@ class PlacesTests: XCTestCase {
         
         let poiDetail = poiInteraction[PlacesConstants.XDM.Key.POI_DETAIL] as! [String: Any]
         XCTAssertEqual("1234", poiDetail[PlacesConstants.XDM.Key.POI_ID] as! String)
-        XCTAssertEqual("myplace", poiDetail[PlacesConstants.XDM.Key.NAME] as! String)
+        XCTAssertEqual("myplace", poiDetail[PlacesConstants.XDM.Key.POI_NAME] as! String)
         
-        let metadata = poiDetail[PlacesConstants.XDM.Key.METADATA] as! [String: Any]
+        let metadata = poiDetail[PlacesConstants.XDM.Key.POI_METADATA] as! [String: Any]
         let metadataList = metadata[PlacesConstants.XDM.Key.LIST] as! [[String: Any]]
         XCTAssertEqual(1, metadataList.count)
         XCTAssertEqual("key1", metadataList[0][PlacesConstants.XDM.Key.KEY] as! String)
         XCTAssertEqual("value1", metadataList[0][PlacesConstants.XDM.Key.VALUE] as! String)
         
-        let geoInteractionDetails = poiDetail[PlacesConstants.XDM.Key.GEO_INTERACTION_DETAILS] as! [String: Any]
-        let geoShape = geoInteractionDetails[PlacesConstants.XDM.Key.SCHEMA] as! [String: Any]
-        let circle = geoShape[PlacesConstants.XDM.Key.CIRCLE] as! [String: Any]
-        let circleSchema = circle[PlacesConstants.XDM.Key.SCHEMA] as! [String: Any]
-        XCTAssertEqual(500, circleSchema[PlacesConstants.XDM.Key.RADIUS] as! Int)
-        
-        let coordinates = circleSchema[PlacesConstants.XDM.Key.COORDINATES] as! [String: Any]
-        let coordinatesSchema = coordinates[PlacesConstants.XDM.Key.SCHEMA] as! [String: Any]
-        XCTAssertEqual(12.34, coordinatesSchema[PlacesConstants.XDM.Key.LATITUDE] as! Double)
-        XCTAssertEqual(23.45, coordinatesSchema[PlacesConstants.XDM.Key.LONGITUDE] as! Double)
-        
-        let poiEntries = poiInteraction[PlacesConstants.XDM.Key.POIENTRIES] as! [String: Any]
-        XCTAssertEqual("1234", poiEntries[PlacesConstants.XDM.Key.ID] as! String)
-        XCTAssertEqual(1, poiEntries[PlacesConstants.XDM.Key.VALUE] as! Int)
-
-        let meta = dispatchedEdgeEventData[PlacesConstants.XDM.Key.META] as! [String: Any]
-        let collect = meta[PlacesConstants.XDM.Key.COLLECT] as! [String: Any]
-        XCTAssertEqual("datasetId", collect[PlacesConstants.XDM.Key.DATASET_ID] as! String)
 
         XCTAssertEqual(["xdm.eventType"], edgeRequestEvent.mask)
     }
@@ -768,32 +750,13 @@ class PlacesTests: XCTestCase {
         
         let poiDetail = poiInteraction[PlacesConstants.XDM.Key.POI_DETAIL] as! [String: Any]
         XCTAssertEqual("1234", poiDetail[PlacesConstants.XDM.Key.POI_ID] as! String)
-        XCTAssertEqual("myplace", poiDetail[PlacesConstants.XDM.Key.NAME] as! String)
+        XCTAssertEqual("myplace", poiDetail[PlacesConstants.XDM.Key.POI_NAME] as! String)
         
-        let metadata = poiDetail[PlacesConstants.XDM.Key.METADATA] as! [String: Any]
+        let metadata = poiDetail[PlacesConstants.XDM.Key.POI_METADATA] as! [String: Any]
         let metadataList = metadata[PlacesConstants.XDM.Key.LIST] as! [[String: Any]]
         XCTAssertEqual(1, metadataList.count)
         XCTAssertEqual("key1", metadataList[0][PlacesConstants.XDM.Key.KEY] as! String)
-        XCTAssertEqual("value1", metadataList[0][PlacesConstants.XDM.Key.VALUE] as! String)
-        
-        let geoInteractionDetails = poiDetail[PlacesConstants.XDM.Key.GEO_INTERACTION_DETAILS] as! [String: Any]
-        let geoShape = geoInteractionDetails[PlacesConstants.XDM.Key.SCHEMA] as! [String: Any]
-        let circle = geoShape[PlacesConstants.XDM.Key.CIRCLE] as! [String: Any]
-        let circleSchema = circle[PlacesConstants.XDM.Key.SCHEMA] as! [String: Any]
-        XCTAssertEqual(500, circleSchema[PlacesConstants.XDM.Key.RADIUS] as! Int)
-        
-        let coordinates = circleSchema[PlacesConstants.XDM.Key.COORDINATES] as! [String: Any]
-        let coordinatesSchema = coordinates[PlacesConstants.XDM.Key.SCHEMA] as! [String: Any]
-        XCTAssertEqual(12.34, coordinatesSchema[PlacesConstants.XDM.Key.LATITUDE] as! Double)
-        XCTAssertEqual(23.45, coordinatesSchema[PlacesConstants.XDM.Key.LONGITUDE] as! Double)
-        
-        let poiExits = poiInteraction[PlacesConstants.XDM.Key.POIEXITS] as! [String: Any]
-        XCTAssertEqual("1234", poiExits[PlacesConstants.XDM.Key.ID] as! String)
-        XCTAssertEqual(1, poiExits[PlacesConstants.XDM.Key.VALUE] as! Int)
-
-        let meta = dispatchedEdgeEventData[PlacesConstants.XDM.Key.META] as! [String: Any]
-        let collect = meta[PlacesConstants.XDM.Key.COLLECT] as! [String: Any]
-        XCTAssertEqual("datasetId", collect[PlacesConstants.XDM.Key.DATASET_ID] as! String)
+        XCTAssertEqual("value1", metadataList[0][PlacesConstants.XDM.Key.VALUE] as! String)    
 
         XCTAssertEqual(["xdm.eventType"], edgeRequestEvent.mask)
     }
@@ -876,51 +839,6 @@ class PlacesTests: XCTestCase {
         
         // verify
         XCTAssertEqual(0, mockRuntime.dispatchedEvents.count)
-    }
-    
-    func testHandleProcessRegionEventRequestDatasetNil() throws {
-        // setup
-        prepareConfigWithDataset(datasetId: nil)
-        let requestingEvent = getProcessRegionEvent()
-        
-        // test
-        mockRuntime.simulateComingEvents(requestingEvent)
-        
-        // verify only places response event is dispatched but not edge event
-        XCTAssertEqual(1, mockRuntime.dispatchedEvents.count)
-        let responseEvent = mockRuntime.firstEvent!
-        XCTAssertEqual(EventType.places, responseEvent.type)
-        XCTAssertEqual(EventSource.responseContent, responseEvent.source)
-    }
-    
-    func testHandleProcessRegionEventRequestDatasetEmpty() throws {
-        // setup
-        prepareConfigWithDataset(datasetId: "")
-        let requestingEvent = getProcessRegionEvent()
-        
-        // test
-        mockRuntime.simulateComingEvents(requestingEvent)
-        
-        // verify only places response event is dispatched but not edge event
-        XCTAssertEqual(1, mockRuntime.dispatchedEvents.count)
-        let responseEvent = mockRuntime.firstEvent!
-        XCTAssertEqual(EventType.places, responseEvent.type)
-        XCTAssertEqual(EventSource.responseContent, responseEvent.source)
-    }
-    
-    func testHandleProcessRegionEventRequestDatasetMissing() throws {
-        // setup
-        prepareConfigMissingDataset()
-        let requestingEvent = getProcessRegionEvent()
-        
-        // test
-        mockRuntime.simulateComingEvents(requestingEvent)
-        
-        // verify only places response event is dispatched but not edge event
-        XCTAssertEqual(1, mockRuntime.dispatchedEvents.count)
-        let responseEvent = mockRuntime.firstEvent!
-        XCTAssertEqual(EventType.places, responseEvent.type)
-        XCTAssertEqual(EventSource.responseContent, responseEvent.source)
     }
     
     // MARK: - getUserWithinPlaces
