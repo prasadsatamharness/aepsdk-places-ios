@@ -39,9 +39,6 @@ class SharedStateResultPlusPlacesTests: XCTestCase {
         if badPrivacy == 552 {
             dataMap[PlacesConstants.EventDataKey.Configuration.GLOBAL_CONFIG_PRIVACY] = badPrivacy
         }
-        if datasetId != nil {
-            dataMap[PlacesConstants.SharedState.Configuration.EXPERIENCE_EVENT_DATASET] = datasetId
-        }
         
         return SharedStateResult(status: .set, value: dataMap)
     }
@@ -120,23 +117,6 @@ class SharedStateResultPlusPlacesTests: XCTestCase {
         
         // verify
         XCTAssertEqual(.unknown, state.globalPrivacy)
-    }
-    
-    func testExperienceEventDatasetHappy() throws {
-        // setup
-        let state = getConfigSharedState()
-        
-        // verify
-        XCTAssertNotNil(state.experienceEventDataset)
-        XCTAssertEqual("1234", state.experienceEventDataset!)
-    }
-    
-    func testExperienceEventDatasetEmpty() throws {
-        // setup
-        let state = getConfigSharedState(datasetId : nil)
-        
-        // verify
-        XCTAssertNil(state.experienceEventDataset)
     }
     
 }

@@ -24,7 +24,7 @@ extension Places {
         ]
 
         let xdmMap: [String: Any] = [
-            PlacesConstants.XDM.Key.EVENT_TYPE: type.toExperienceEventType(),
+            PlacesConstants.XDM.Key.EVENT_TYPE: type.experienceEventType,
             PlacesConstants.XDM.Key.PLACE_CONTEXT: [
                 PlacesConstants.XDM.Key.POI_INTERACTION: poiInteraction
             ]

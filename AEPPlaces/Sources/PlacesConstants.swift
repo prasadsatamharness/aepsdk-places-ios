@@ -152,20 +152,15 @@ enum PlacesConstants {
         enum Key {
             static let EVENT_TYPE = "eventType"
             static let XDM = "xdm"
-
             static let PLACE_CONTEXT = "placeContext"
             static let POI_INTERACTION = "POIinteraction"
             static let POI_DETAIL = "poiDetail"
-
             static let POI_ID = "poiID"
             static let POI_NAME = "name"
             static let POI_METADATA = "metadata"
             static let LIST = "list"
             static let KEY = "key"
             static let VALUE = "value"
-
-            static let ID = "id"
-
         }
 
         enum Location {
@@ -173,16 +168,6 @@ enum PlacesConstants {
                 static let ENTRY = "location.entry"
                 static let EXIT = "location.exit"
             }
-        }
-    }
-
-    /* Messaging's config, to pickup its AEP dataset id. */
-    enum SharedState {
-        enum Configuration {
-            static let NAME = "com.adobe.module.configuration"
-
-            // Messaging dataset ids
-            static let EXPERIENCE_EVENT_DATASET = "messaging.eventDataset"
         }
     }
 }

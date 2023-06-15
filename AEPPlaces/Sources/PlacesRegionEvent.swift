@@ -28,7 +28,17 @@ public enum PlacesRegionEvent: Int {
             return "exit"
         }
     }
+    
+    var experienceEventType : String {
+        switch self {
+        case .entry:
+            return PlacesConstants.XDM.Location.EventType.ENTRY
 
+        case .exit:
+            return PlacesConstants.XDM.Location.EventType.EXIT
+        }
+    }
+    
     /// Converts a `String` to its respective `PlacesRegionEvent`
     /// If `string` is not a valid `PlacesRegionEvent`, calling this method will return `nil`
     /// - Parameter string: a `String` representation of a `PlacesRegionEvent`
@@ -42,16 +52,6 @@ public enum PlacesRegionEvent: Int {
 
         default:
             return nil
-        }
-    }
-
-    public func toExperienceEventType() -> String {
-        switch self {
-        case .entry:
-            return PlacesConstants.XDM.Location.EventType.ENTRY
-
-        case .exit:
-            return PlacesConstants.XDM.Location.EventType.EXIT
         }
     }
 }

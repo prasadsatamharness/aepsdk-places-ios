@@ -97,16 +97,14 @@ class PlacesTests: XCTestCase {
         return configEvent
     }
     
-    func getConfigSharedStateEventData(privacy: PrivacyStatus,
-                                       datasetId: String? = "datasetId") -> [String : Any] {
+    func getConfigSharedStateEventData(privacy: PrivacyStatus) -> [String : Any] {
         return [
             PlacesConstants.EventDataKey.Configuration.GLOBAL_CONFIG_PRIVACY: privacy.rawValue,
             PlacesConstants.EventDataKey.Configuration.PLACES_ENDPOINT: "test.places.endpoint",
             PlacesConstants.EventDataKey.Configuration.PLACES_MEMBERSHIP_TTL: 60,
             PlacesConstants.EventDataKey.Configuration.PLACES_LIBRARIES: [
                 [PlacesConstants.EventDataKey.Configuration.PLACES_LIBRARY_ID: "libraryId"]
-            ],
-            PlacesConstants.SharedState.Configuration.EXPERIENCE_EVENT_DATASET: datasetId as Any
+            ]
         ] as [String : Any]
     }
     

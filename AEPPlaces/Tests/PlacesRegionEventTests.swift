@@ -76,7 +76,7 @@ class PlacesRegionEventTests: XCTestCase {
         let entryEvent = PlacesRegionEvent(rawValue: 0)
         
         // verify
-        XCTAssertEqual(PlacesConstants.XDM.Location.EventType.ENTRY, entryEvent?.toExperienceEventType())
+        XCTAssertEqual(PlacesConstants.XDM.Location.EventType.ENTRY, entryEvent?.experienceEventType)
     }
     
     func testToExperienceEventTypeExit() throws {
@@ -84,7 +84,7 @@ class PlacesRegionEventTests: XCTestCase {
         let entryEvent = PlacesRegionEvent(rawValue: 1)
         
         // verify
-        XCTAssertEqual(PlacesConstants.XDM.Location.EventType.EXIT, entryEvent?.toExperienceEventType())
+        XCTAssertEqual(PlacesConstants.XDM.Location.EventType.EXIT, entryEvent?.experienceEventType)
     }
     
     func testToExperienceEventTypeInvalid() throws {
@@ -92,6 +92,6 @@ class PlacesRegionEventTests: XCTestCase {
         let entryEvent = PlacesRegionEvent(rawValue: 552)
         
         // verify
-        XCTAssertNil(entryEvent?.toExperienceEventType())
+        XCTAssertNil(entryEvent?.experienceEventType)
     }
 }
