@@ -37,7 +37,6 @@ def test_main
     pod 'AEPAssurance'
     pod 'AEPEdgeIdentity'
     pod 'AEPEdge'
-    pod 'ACPCore', :git => 'https://github.com/adobe/aep-sdk-compatibility-ios.git', :branch => 'main'
 end
 
 # test app against dev branches

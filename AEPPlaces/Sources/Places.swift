@@ -208,7 +208,7 @@ public class Places: NSObject, Extension {
             }
             let eventData: [String: Any] = [
                 PlacesConstants.EventDataKey.Places.RESPONSE_STATUS: result.response.rawValue,
-                PlacesConstants.SharedStateKey.NEARBY_POIS: nearbyPoiArray,
+                PlacesConstants.SharedStateKey.NEARBY_POIS: nearbyPoiArray
             ]
 
             self.dispatchResponseEventWith(name: PlacesConstants.EventName.Response.GET_NEARBY_PLACES,
@@ -274,7 +274,7 @@ public class Places: NSObject, Extension {
         let userWithinPoiArray = userWithinPois.values.map { $0.mapValue }
 
         let eventData = [
-            PlacesConstants.SharedStateKey.USER_WITHIN_POIS: userWithinPoiArray,
+            PlacesConstants.SharedStateKey.USER_WITHIN_POIS: userWithinPoiArray
         ]
 
         dispatchResponseEventWith(name: PlacesConstants.EventName.Response.GET_USER_WITHIN_PLACES,
@@ -288,7 +288,7 @@ public class Places: NSObject, Extension {
 
         let eventData = [
             PlacesConstants.EventDataKey.Places.LATITUDE: lastKnownCoordinate.latitude,
-            PlacesConstants.EventDataKey.Places.LONGITUDE: lastKnownCoordinate.longitude,
+            PlacesConstants.EventDataKey.Places.LONGITUDE: lastKnownCoordinate.longitude
         ]
 
         dispatchResponseEventWith(name: PlacesConstants.EventName.Response.GET_LAST_KNOWN_LOCATION,
@@ -329,7 +329,7 @@ public class Places: NSObject, Extension {
     private func dispatchRegionEventFor(poi: PointOfInterest, withRegionEventType type: PlacesRegionEvent) {
         let eventData: [String: Any] = [
             PlacesConstants.EventDataKey.Places.TRIGGERING_REGION: poi.mapValue,
-            PlacesConstants.EventDataKey.Places.REGION_EVENT_TYPE: type.stringValue,
+            PlacesConstants.EventDataKey.Places.REGION_EVENT_TYPE: type.stringValue
         ]
         let event = Event(name: PlacesConstants.EventName.Response.PROCESS_REGION_EVENT,
                           type: EventType.places,

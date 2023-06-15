@@ -129,24 +129,6 @@ class PlacesTests: XCTestCase {
                                         ], .set))
     }
     
-    func prepareConfigWithDataset(datasetId: String?) {
-        mockRuntime.simulateSharedState(for: PlacesConstants.EventDataKey.Configuration.SHARED_STATE_NAME,
-                                        data: (getConfigSharedStateEventData(privacy: PrivacyStatus.optedIn, datasetId: datasetId), .set))
-    }
-    
-    func prepareConfigMissingDataset() {
-        mockRuntime.simulateSharedState(for: PlacesConstants.EventDataKey.Configuration.SHARED_STATE_NAME,
-                                        data: ([
-                                            PlacesConstants.EventDataKey.Configuration.GLOBAL_CONFIG_PRIVACY: PrivacyStatus.optedIn.rawValue,
-                                            PlacesConstants.EventDataKey.Configuration.PLACES_ENDPOINT: "test.places.endpoint",
-                                            PlacesConstants.EventDataKey.Configuration.PLACES_MEMBERSHIP_TTL: 60,
-                                            PlacesConstants.EventDataKey.Configuration.PLACES_LIBRARIES: [
-                                                [PlacesConstants.EventDataKey.Configuration.PLACES_LIBRARY_ID: "libraryId"]
-                                            ]
-                                        ], .set))
-    }
-    
-    
     func getGetNearbyPlacesRequestEvent(_ data: [String: Any]? = nil) -> Event {
         return Event(name: PlacesConstants.EventName.Request.GET_NEARBY_PLACES,
                      type: EventType.places,

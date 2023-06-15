@@ -1,5 +1,5 @@
 /*
- Copyright 2022 Adobe. All rights reserved.
+ Copyright 2023 Adobe. All rights reserved.
  This file is licensed to you under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License. You may obtain a copy
  of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -15,15 +15,13 @@ import AEPServices
 import Foundation
 
 extension Places {
-    
-    
+
     func sendExperienceEventToEdge(event: Event, poi: PointOfInterest, withRegionEventType type: PlacesRegionEvent) {
 
         // add eventType and prescribed data for the experience info
-        var poiInteraction: [String: Any] = [
-            PlacesConstants.XDM.Key.POI_DETAIL: createXDMPOIDetail(poi: poi),
+        let poiInteraction: [String: Any] = [
+            PlacesConstants.XDM.Key.POI_DETAIL: createXDMPOIDetail(poi: poi)
         ]
-
 
         let xdmMap: [String: Any] = [
             PlacesConstants.XDM.Key.EVENT_TYPE: type.toExperienceEventType(),
@@ -32,7 +30,6 @@ extension Places {
             ]
         ]
 
-
         // Creating xdm edge event data
         let xdmEventData: [String: Any] = [
             PlacesConstants.XDM.Key.XDM: xdmMap
@@ -40,7 +37,7 @@ extension Places {
 
         // create the mask for storing event history
         let mask = [
-            "xdm.eventType",
+            "xdm.eventType"
         ]
 
         // Creating xdm edge event with request content source type
@@ -53,10 +50,10 @@ extension Places {
     }
 
     private func createXDMPOIDetail(poi: PointOfInterest) -> [String: Any] {
-        var poiDetail: [String: Any] = [
+        let poiDetail: [String: Any] = [
             PlacesConstants.XDM.Key.POI_ID: poi.identifier,
             PlacesConstants.XDM.Key.POI_NAME: poi.name,
-            PlacesConstants.XDM.Key.POI_METADATA: createPOIMetadata(poi: poi),
+            PlacesConstants.XDM.Key.POI_METADATA: createPOIMetadata(poi: poi)
         ]
         return poiDetail
     }
@@ -67,7 +64,7 @@ extension Places {
         for (metaKey, metaValue) in poi.metaData {
             let metaTuple: [String: Any] = [
                 PlacesConstants.XDM.Key.KEY: metaKey,
-                PlacesConstants.XDM.Key.VALUE: metaValue,
+                PlacesConstants.XDM.Key.VALUE: metaValue
             ]
 
             list.append(metaTuple)
