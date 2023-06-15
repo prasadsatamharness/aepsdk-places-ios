@@ -20,6 +20,7 @@ import AEPIdentity
 import AEPLifecycle
 import AEPEdgeIdentity
 import AEPEdge
+import AEPEdgeConsent
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -31,7 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         MobileCore.configureWith(appId: "")
         
         let appState = application.applicationState
-        MobileCore.registerExtensions([Places.self, Signal.self, Analytics.self, Identity.self, Lifecycle.self, Assurance.self,  AEPEdgeIdentity.Identity.self, Edge.self]) {
+        MobileCore.registerExtensions([Places.self, Signal.self, Analytics.self, Identity.self, Lifecycle.self, Assurance.self,  AEPEdgeIdentity.Identity.self, Edge.self, Consent.self]) {
             // Griffon Session - AEPPlaces in Adobe Benedick Corp
             Assurance.startSession(url: URL(string: "<YOUR_SESSION_ID>"))        
             if appState != .background {

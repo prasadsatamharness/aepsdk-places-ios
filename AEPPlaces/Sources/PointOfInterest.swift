@@ -21,7 +21,7 @@ public class PointOfInterest: NSObject {
     @objc public var latitude: Double
     @objc public var longitude: Double
     @objc public var radius: Int
-    @objc public var metaData: [String: Any]
+    @objc public var metaData: [String: String]
     @objc public var userIsWithin: Bool
 
     @objc public private(set) var libraryId: String

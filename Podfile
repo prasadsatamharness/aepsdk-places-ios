@@ -36,6 +36,7 @@ def test_main
     pod 'AEPSignal'
     pod 'AEPAssurance'
     pod 'AEPEdgeIdentity'
+    pod 'AEPEdgeConsent'
     pod 'AEPEdge'
 end
 

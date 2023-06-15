@@ -15,7 +15,16 @@ import AEPServices
 import Foundation
 
 extension Places {
+    
+    static let MASK_EVENT_TYPE_PATH = "xdm.eventType"
+    static let MASK_POIID_PATH = "xdm.placeContext.POIinteraction.poiDetail.poiID"
 
+    /// Sends an experience event to the edge server for the specified geofence entry/exit location event.
+    ///
+    /// - Parameters:
+    ///   - event: The region event representing geofence entry/exit.
+    ///   - poi: The PointOfInterest object associated with the event.
+    ///   - type: The PlacesRegionEvent representing the region event type (entry or exit).
     func sendExperienceEventToEdge(event: Event, poi: PointOfInterest, withRegionEventType type: PlacesRegionEvent) {
 
         // add eventType and prescribed data for the experience info
@@ -37,7 +46,8 @@ extension Places {
 
         // create the mask for storing event history
         let mask = [
-            "xdm.eventType"
+            Places.MASK_EVENT_TYPE_PATH,
+            Places.MASK_POIID_PATH
         ]
 
         // Creating xdm edge event with request content source type
@@ -49,19 +59,32 @@ extension Places {
         dispatch(event: event)
     }
 
+    /// Creates an XDM (Experience Data Model) representation of a Point of Interest (POI) detail based on the provided POI object.
+    ///
+    /// - Parameter poi: The PointOfInterest object for which the XDM POI detail needs to be created.
+    /// - Returns: A dictionary containing the XDM representation of the POI detail, following the XDM specification.
     private func createXDMPOIDetail(poi: PointOfInterest) -> [String: Any] {
+        // Create a dictionary representing the XDM POI detail
         let poiDetail: [String: Any] = [
             PlacesConstants.XDM.Key.POI_ID: poi.identifier,
             PlacesConstants.XDM.Key.POI_NAME: poi.name,
             PlacesConstants.XDM.Key.POI_METADATA: createPOIMetadata(poi: poi)
         ]
+        
+        // Return the XDM POI detail dictionary
         return poiDetail
     }
 
+    /// Creates metadata for a Point of Interest (POI) based on the provided POI object.
+    ///
+    /// - Parameter poi: The PointOfInterest object for which the metadata needs to be created.
+    /// - Returns: A dictionary containing the metadata for the POI, with keys and values following the XDM specification.
     private func createPOIMetadata(poi: PointOfInterest) -> [String: Any] {
         var list = [[String: Any]]()
 
+        // Iterate over the metadata key-value pairs of the POI
         for (metaKey, metaValue) in poi.metaData {
+            // Create a dictionary representing a metadata tuple
             let metaTuple: [String: Any] = [
                 PlacesConstants.XDM.Key.KEY: metaKey,
                 PlacesConstants.XDM.Key.VALUE: metaValue
