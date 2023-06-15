@@ -669,7 +669,7 @@ class PlacesTests: XCTestCase {
         XCTAssertEqual("value1", metadataList[0][PlacesConstants.XDM.Key.VALUE] as! String)
         
 
-        XCTAssertEqual(["xdm.eventType"], edgeRequestEvent.mask)
+        XCTAssertEqual(["xdm.eventType", "xdm.placeContext.POIinteraction.poiDetail.poiID"], edgeRequestEvent.mask)
     }
     
     func testHandleProcessRegionEventRequestExit() throws {
@@ -738,7 +738,7 @@ class PlacesTests: XCTestCase {
         XCTAssertEqual("key1", metadataList[0][PlacesConstants.XDM.Key.KEY] as! String)
         XCTAssertEqual("value1", metadataList[0][PlacesConstants.XDM.Key.VALUE] as! String)    
 
-        XCTAssertEqual(["xdm.eventType"], edgeRequestEvent.mask)
+        XCTAssertEqual(["xdm.eventType", "xdm.placeContext.POIinteraction.poiDetail.poiID"], edgeRequestEvent.mask)
     }
     
     func testHandleProcessRegionEventRequestPrivacyOptedOut() throws {
