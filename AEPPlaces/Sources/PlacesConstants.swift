@@ -21,7 +21,7 @@ enum PlacesConstants {
     enum DefaultValues {
         static let MEMBERSHIP_TTL: TimeInterval = 60 * 60 // 1 hour in seconds
         static let NEARBY_POI_COUNT = 10
-        static let RADIUS = 1_000 // 1 km
+        static let RADIUS = 1000 // 1 km
         static let INVALID_LAT_LON = 999.999
     }
 
@@ -88,6 +88,7 @@ enum PlacesConstants {
             static let RESET = "requestreset"
             static let SET_ACCURACY = "requestsetaccuracy"
             static let SET_AUTHORIZATION_STATUS = "requestsetauthorizationstatus"
+            static let LOCATION_TRACKING = "Location Tracking Event"
         }
 
         enum Response {
@@ -145,5 +146,33 @@ enum PlacesConstants {
                 static let SET_AUTHORIZATION_STATUS = "requestsetauthorizationstatus"
             }
         }
+    }
+
+    enum XDM {
+        enum Key {
+            static let EVENT_TYPE = "eventType"
+            static let XDM = "xdm"
+            static let PLACE_CONTEXT = "placeContext"
+            static let POI_INTERACTION = "POIinteraction"
+            static let POI_DETAIL = "poiDetail"
+            static let POI_ID = "poiID"
+            static let POI_NAME = "name"
+            static let POI_METADATA = "metadata"
+            static let LIST = "list"
+            static let KEY = "key"
+            static let VALUE = "value"
+        }
+
+        enum Location {
+            enum EventType {
+                static let ENTRY = "location.entry"
+                static let EXIT = "location.exit"
+            }
+        }
+    }
+    
+    enum EventMask {
+        static let EVENT_TYPE = "xdm.eventType"
+        static let POIID = "xdm.placeContext.POIinteraction.poiDetail.poiID"
     }
 }
