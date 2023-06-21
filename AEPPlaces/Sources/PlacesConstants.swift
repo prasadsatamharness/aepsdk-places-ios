@@ -170,4 +170,9 @@ enum PlacesConstants {
             }
         }
     }
+    
+    enum EventMask {
+        static let EVENT_TYPE = "xdm.eventType"
+        static let POIID = "xdm.placeContext.POIinteraction.poiDetail.poiID"
+    }
 }

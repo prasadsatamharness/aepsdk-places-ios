@@ -15,9 +15,6 @@ import AEPServices
 import Foundation
 
 extension Places {
-    
-    static let MASK_EVENT_TYPE_PATH = "xdm.eventType"
-    static let MASK_POIID_PATH = "xdm.placeContext.POIinteraction.poiDetail.poiID"
 
     /// Sends an experience event to the edge server for the specified geofence entry/exit location event.
     ///
@@ -46,8 +43,8 @@ extension Places {
 
         // create the mask for storing event history
         let mask = [
-            Places.MASK_EVENT_TYPE_PATH,
-            Places.MASK_POIID_PATH
+            PlacesConstants.EventMask.EVENT_TYPE,
+            PlacesConstants.EventMask.POIID
         ]
 
         // Creating xdm edge event with request content source type
