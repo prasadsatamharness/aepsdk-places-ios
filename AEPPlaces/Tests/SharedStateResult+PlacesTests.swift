@@ -20,7 +20,8 @@ class SharedStateResultPlusPlacesTests: XCTestCase {
                               placesEndpoint: String? = "test.places.edge",
                               placesMembershipTtl: TimeInterval? = 552,
                               privacy: String? = "optedin",
-                              badPrivacy: Int? = 0) -> SharedStateResult {
+                              badPrivacy: Int? = 0,
+                              datasetId: String? = "1234") -> SharedStateResult {
         var dataMap: [String: Any] = [:]
         
         if placesLibraries != nil {
@@ -116,5 +117,6 @@ class SharedStateResultPlusPlacesTests: XCTestCase {
         
         // verify
         XCTAssertEqual(.unknown, state.globalPrivacy)
-    }    
+    }
+    
 }

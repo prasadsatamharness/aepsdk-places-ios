@@ -32,4 +32,5 @@ extension SharedStateResult {
     var globalPrivacy: PrivacyStatus {
         PrivacyStatus(rawValue: value?[PlacesConstants.EventDataKey.Configuration.GLOBAL_CONFIG_PRIVACY] as? String ?? "unknown")!
     }
+
 }
