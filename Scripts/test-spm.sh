@@ -36,6 +36,11 @@ let package = Package(
         .target(
             name: \"TestProject\",
             dependencies: [
+                .product(name: \"AEPCore\", package: \"AEPCore\"),
+                .product(name: \"AEPIdentity\", package: \"AEPCore\"),
+                .product(name: \"AEPLifecycle\", package: \"AEPCore\"),
+                .product(name: \"AEPServices\", package: \"AEPCore\"),
+                .product(name: \"AEPSignal\", package: \"AEPCore\"),
                 .product(name: \"AEPPlaces\", package: \"AEPPlaces\"),
             ])
     ]
