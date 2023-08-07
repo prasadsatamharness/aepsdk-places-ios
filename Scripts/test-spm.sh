@@ -52,7 +52,7 @@ swift package resolve
 
 # This is nececery to avoid internal PIF error
 swift package dump-pif > /dev/null
-xcodebuild clean -scheme TestProject -destination 'generic/platform=iOS' > /dev/null
+(xcodebuild clean -scheme TestProject -destination 'generic/platform=iOS' > /dev/null) || :
 
 # Archive for generic iOS device
 echo '############# Archive for generic iOS device ###############'
@@ -63,7 +63,7 @@ echo '############# Build for generic iOS device ###############'
 xcodebuild build -scheme TestProject -destination 'generic/platform=iOS'
 
 # Build for x86_64 simulator
-echo '############# Build for x86_64 simulator ###############'
+echo '############# Build for x86_64 iOS simulator ###############'
 xcodebuild build -scheme TestProject -destination 'generic/platform=iOS Simulator' ARCHS=x86_64
 
 # Clean up.
