@@ -29,12 +29,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         MobileCore.setLogLevel(.trace)
 
         // steve-places in Adobe Benedick Corp: launch-EN459260fc579a4dcbb2d1743947e65f09-development
-        MobileCore.configureWith(appId: "")
+        MobileCore.configureWith(appId: "launch-EN459260fc579a4dcbb2d1743947e65f09-development")
         
         let appState = application.applicationState
         MobileCore.registerExtensions([Places.self, Signal.self, Analytics.self, Identity.self, Lifecycle.self, Assurance.self,  AEPEdgeIdentity.Identity.self, Edge.self, Consent.self]) {
             // Griffon Session - AEPPlaces in Adobe Benedick Corp
-            Assurance.startSession(url: URL(string: "<YOUR_SESSION_ID>"))        
+//            Assurance.startSession(url: URL(string: "<YOUR_SESSION_ID>"))
             if appState != .background {
                 MobileCore.lifecycleStart(additionalContextData: nil)
             }

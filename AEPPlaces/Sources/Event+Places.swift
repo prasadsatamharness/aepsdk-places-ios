@@ -91,8 +91,8 @@ extension Event {
         data?[PlacesConstants.EventDataKey.Places.LONGITUDE] as? Double
     }
 
-    var requestedPoiCount: Int? {
-        data?[PlacesConstants.EventDataKey.Places.COUNT] as? Int
+    var requestedPoiCount: UInt? {
+        data?[PlacesConstants.EventDataKey.Places.COUNT] as? UInt
     }
 
     var placesQueryResponseCode: PlacesQueryResponseCode? {
