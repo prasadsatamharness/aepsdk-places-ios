@@ -214,7 +214,7 @@ class PlacesQueryServiceTests: XCTestCase {
             XCTAssertTrue(returnedPoi.userIsWithin)
             XCTAssertEqual("mylib", returnedPoi.libraryId)
             XCTAssertEqual(25, returnedPoi.weight)
-            XCTAssertEqual("value1", returnedPoi.metaData["key1"] as? String)
+            XCTAssertEqual("value1", returnedPoi.metaData["key1"])
             
             expectation.fulfill()
         }
@@ -251,7 +251,7 @@ class PlacesQueryServiceTests: XCTestCase {
             XCTAssertTrue(returnedPoi.userIsWithin)
             XCTAssertEqual("mylib", returnedPoi.libraryId)
             XCTAssertEqual(25, returnedPoi.weight)
-            XCTAssertEqual("value1", returnedPoi.metaData["key1"] as? String)
+            XCTAssertEqual("value1", returnedPoi.metaData["key1"])
             
             expectation.fulfill()
         }
@@ -288,7 +288,7 @@ class PlacesQueryServiceTests: XCTestCase {
             XCTAssertFalse(returnedPoi.userIsWithin)
             XCTAssertEqual("mylib", returnedPoi.libraryId)
             XCTAssertEqual(25, returnedPoi.weight)
-            XCTAssertEqual("value1", returnedPoi.metaData["key1"] as? String)
+            XCTAssertEqual("value1", returnedPoi.metaData["key1"])
             
             expectation.fulfill()
         }
@@ -325,7 +325,7 @@ class PlacesQueryServiceTests: XCTestCase {
             XCTAssertFalse(returnedPoi.userIsWithin)
             XCTAssertEqual("mylib", returnedPoi.libraryId)
             XCTAssertEqual(25, returnedPoi.weight)
-            XCTAssertEqual("value1", returnedPoi.metaData["key1"] as? String)
+            XCTAssertEqual("value1", returnedPoi.metaData["key1"])
             
             expectation.fulfill()
         }
@@ -363,7 +363,7 @@ class PlacesQueryServiceTests: XCTestCase {
             XCTAssertTrue(returnedPoi.userIsWithin)
             XCTAssertEqual("mylib", returnedPoi.libraryId)
             XCTAssertEqual(25, returnedPoi.weight)
-            XCTAssertEqual("value1", returnedPoi.metaData["key1"] as? String)
+            XCTAssertEqual("value1", returnedPoi.metaData["key1"])
             
             let nearbyPoi = result.pois![1]
             XCTAssertEqual("2345", nearbyPoi.identifier)
@@ -374,7 +374,7 @@ class PlacesQueryServiceTests: XCTestCase {
             XCTAssertFalse(nearbyPoi.userIsWithin)
             XCTAssertEqual("yourlib", nearbyPoi.libraryId)
             XCTAssertEqual(30, nearbyPoi.weight)
-            XCTAssertEqual("value2", nearbyPoi.metaData["key2"] as? String)
+            XCTAssertEqual("value2", nearbyPoi.metaData["key2"])
             
             expectation.fulfill()
         }
@@ -412,7 +412,7 @@ class PlacesQueryServiceTests: XCTestCase {
             XCTAssertFalse(poi1.userIsWithin)
             XCTAssertEqual("mylib", poi1.libraryId)
             XCTAssertEqual(25, poi1.weight)
-            XCTAssertEqual("value1", poi1.metaData["key1"] as? String)
+            XCTAssertEqual("value1", poi1.metaData["key1"])
             
             let poi2 = result.pois![1]
             XCTAssertEqual("2345", poi2.identifier)
@@ -423,7 +423,7 @@ class PlacesQueryServiceTests: XCTestCase {
             XCTAssertFalse(poi2.userIsWithin)
             XCTAssertEqual("yourlib", poi2.libraryId)
             XCTAssertEqual(30, poi2.weight)
-            XCTAssertEqual("value2", poi2.metaData["key2"] as? String)
+            XCTAssertEqual("value2", poi2.metaData["key2"])
             
             expectation.fulfill()
         }
@@ -461,7 +461,7 @@ class PlacesQueryServiceTests: XCTestCase {
             XCTAssertTrue(poi1.userIsWithin)
             XCTAssertEqual("mylib", poi1.libraryId)
             XCTAssertEqual(25, poi1.weight)
-            XCTAssertEqual("value1", poi1.metaData["key1"] as? String)
+            XCTAssertEqual("value1", poi1.metaData["key1"])
             
             let poi2 = result.pois![1]
             XCTAssertEqual("2345", poi2.identifier)
@@ -472,7 +472,7 @@ class PlacesQueryServiceTests: XCTestCase {
             XCTAssertTrue(poi2.userIsWithin)
             XCTAssertEqual("yourlib", poi2.libraryId)
             XCTAssertEqual(30, poi2.weight)
-            XCTAssertEqual("value2", poi2.metaData["key2"] as? String)
+            XCTAssertEqual("value2", poi2.metaData["key2"])
             
             expectation.fulfill()
         }
