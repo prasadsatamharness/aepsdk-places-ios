@@ -134,7 +134,7 @@ class PlacesTests: XCTestCase {
                      data: data ?? [
                         PlacesConstants.EventDataKey.Places.LATITUDE: 12.34,
                         PlacesConstants.EventDataKey.Places.LONGITUDE: 23.45,
-                        PlacesConstants.EventDataKey.Places.COUNT: 7,
+                        PlacesConstants.EventDataKey.Places.COUNT: UInt(7),
                         PlacesConstants.EventDataKey.Places.REQUEST_TYPE: PlacesConstants.EventDataKey.Places.RequestType.GET_NEARBY_PLACES
                      ])
     }
