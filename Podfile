@@ -39,7 +39,7 @@ def test_main
     pod 'AEPIdentity'
     pod 'AEPLifecycle'
     pod 'AEPSignal'
-    pod 'AEPAssurance'
+    pod 'AEPAssurance', :git => 'https://github.com/adobe/aepsdk-assurance-ios.git', :branch => 'staging'
     pod 'AEPEdgeIdentity'
     pod 'AEPEdgeConsent'
     pod 'AEPEdge'
@@ -63,18 +63,18 @@ end
 # TARGET DEFINITIONS
 # ==================
 target 'AEPPlaces' do
-    dev_dev
+    dev_main
 end
 
 target 'AEPPlacesTests' do
-    dev_dev
-    pod 'AEPTestUtils', :git => 'https://github.com/adobe/aepsdk-testutils-ios.git', :tag => 'v5.0.0-beta'
+    dev_main
+    pod 'AEPTestUtils', :git => 'https://github.com/adobe/aepsdk-testutils-ios.git', :tag => '5.0.0'
 end
 
 target 'PlacesTestApp' do
-    test_dev
+    test_main
 end
 
 target 'PlacesTestApp_objc' do
-    test_dev
+    test_main
 end
