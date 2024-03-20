@@ -20,7 +20,7 @@ let package = Package(
     name: \"TestProject\",
     defaultLocalization: \"en-US\",
     platforms: [
-        .iOS(.v11)
+        .iOS(.v12)
     ],
     products: [
         .library(
@@ -29,7 +29,7 @@ let package = Package(
         )
     ],
     dependencies: [
-        .package(name: \"AEPCore\", url: \"https://github.com/adobe/aepsdk-core-ios.git\", .upToNextMajor(from:\"4.0.0\")),
+        .package(name: \"AEPCore\", url: \"https://github.com/adobe/aepsdk-core-ios.git\", .upToNextMajor(from:\"5.0.0\")),
         .package(name: \"AEPPlaces\", path: \"../\"),
     ],
     targets: [
@@ -50,7 +50,7 @@ let package = Package(
 swift package update
 swift package resolve
 
-# This is nececery to avoid internal PIF error
+# This is necessary to avoid internal PIF error
 swift package dump-pif > /dev/null
 (xcodebuild clean -scheme TestProject -destination 'generic/platform=iOS' > /dev/null) || :
 

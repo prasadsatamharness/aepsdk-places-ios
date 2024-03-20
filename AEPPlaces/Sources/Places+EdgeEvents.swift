@@ -67,7 +67,7 @@ extension Places {
             PlacesConstants.XDM.Key.POI_NAME: poi.name,
             PlacesConstants.XDM.Key.POI_METADATA: createPOIMetadata(poi: poi)
         ]
-        
+
         // Return the XDM POI detail dictionary
         return poiDetail
     }

@@ -50,7 +50,7 @@ class EventPlusPlacesTests: XCTestCase {
                                      requestType: String = PlacesConstants.EventDataKey.Places.RequestType.GET_NEARBY_PLACES,
                                      latitude: Double = 12.34,
                                      longitude: Double = 23.45,
-                                     count: Int = 5) -> Event {
+                                     count: UInt = 5) -> Event {
         return Event(name: "name", type: type, source: source, data: [
             PlacesConstants.EventDataKey.Places.REQUEST_TYPE: requestType,
             PlacesConstants.EventDataKey.Places.LATITUDE: latitude,

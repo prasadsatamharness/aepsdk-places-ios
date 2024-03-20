@@ -189,7 +189,10 @@ public class Places: NSObject, Extension {
         updateMembershipValidUntil()
 
         // prep request for places query service
-        let count = event.requestedPoiCount ?? PlacesConstants.DefaultValues.NEARBY_POI_COUNT
+        var count: Int = PlacesConstants.DefaultValues.NEARBY_POI_COUNT
+        if let requestedCount = event.requestedPoiCount {
+            count = Int(requestedCount)
+        }
 
         Log.debug(label: PlacesConstants.LOG_TAG, "Requesting \(count) nearby POIs for device location (\(latitude), \(longitude))")
 

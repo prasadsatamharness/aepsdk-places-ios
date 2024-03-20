@@ -1,8 +1,11 @@
 # Uncomment the next line to define a global platform for your project
-platform :ios, '11.0'
+platform :ios, '12.0'
 
 # Comment the next line if you don't want to use dynamic frameworks
 use_frameworks!
+
+$dev_repo = 'https://github.com/adobe/aepsdk-core-ios.git'
+$dev_branch = 'staging'
 
 # don't warn me
 install! 'cocoapods', :warn_for_unused_master_specs_repo => false
@@ -19,12 +22,14 @@ pod 'SwiftLint', '0.52.0'
 def dev_main
     pod 'AEPCore'
     pod 'AEPServices'
+    pod 'AEPRulesEngine'
 end
 
 # development against dev branches of dependencies
 def dev_dev
-    pod 'AEPCore', :git => 'https://github.com/adobe/aepsdk-core-ios.git', :branch => 'dev-v4.0.0'
-    pod 'AEPServices', :git => 'https://github.com/adobe/aepsdk-core-ios.git', :branch => 'dev-v4.0.0'
+    pod 'AEPCore', :git => $dev_repo, :branch => $dev_branch
+    pod 'AEPServices', :git => $dev_repo, :branch => $dev_branch
+    pod 'AEPRulesEngine' #, :git => 'https://github.com/adobe/aepsdk-rulesengine-ios.git', :branch => 'dev-v5.0.0'
 end
 
 # test app against main branches
@@ -34,7 +39,7 @@ def test_main
     pod 'AEPIdentity'
     pod 'AEPLifecycle'
     pod 'AEPSignal'
-    pod 'AEPAssurance'
+    pod 'AEPAssurance', :git => 'https://github.com/adobe/aepsdk-assurance-ios.git', :branch => 'staging'
     pod 'AEPEdgeIdentity'
     pod 'AEPEdgeConsent'
     pod 'AEPEdge'
@@ -43,11 +48,15 @@ end
 # test app against dev branches
 def test_dev
     dev_dev
-    pod 'AEPAnalytics', :git => 'https://github.com/adobe/aepsdk-analytics-ios.git', :branch => 'dev-v4.0.0'
-    pod 'AEPIdentity', :git => 'https://github.com/adobe/aepsdk-core-ios.git', :branch => 'dev-v4.0.0'
-    pod 'AEPLifecycle', :git => 'https://github.com/adobe/aepsdk-core-ios.git', :branch => 'dev-v4.0.0'
-    pod 'AEPSignal', :git => 'https://github.com/adobe/aepsdk-core-ios.git', :branch => 'dev-v4.0.0'
-    pod 'AEPAssurance', :git => 'https://github.com/adobe/aepsdk-assurance-ios.git', :branch => 'dev-v4.0.0'
+    pod 'AEPIdentity', :git => $dev_repo, :branch => $dev_branch
+    pod 'AEPLifecycle', :git => $dev_repo, :branch => $dev_branch
+    pod 'AEPSignal', :git => $dev_repo, :branch => $dev_branch
+    
+    pod 'AEPAnalytics'
+    pod 'AEPAssurance', :git => 'https://github.com/adobe/aepsdk-assurance-ios.git', :branch => 'dev-v5.0.0'        
+    pod 'AEPEdge', :git => 'https://github.com/adobe/aepsdk-edge-ios.git', :branch => 'dev-v5.0.0'
+    pod 'AEPEdgeConsent', :git => 'https://github.com/adobe/aepsdk-edgeconsent-ios.git', :branch => 'dev-v5.0.0'
+    pod 'AEPEdgeIdentity', :git => 'https://github.com/adobe/aepsdk-edgeidentity-ios.git', :branch => 'dev-v5.0.0'
 end
 
 # ==================
@@ -59,6 +68,7 @@ end
 
 target 'AEPPlacesTests' do
     dev_main
+    pod 'AEPTestUtils', :git => 'https://github.com/adobe/aepsdk-testutils-ios.git', :tag => '5.0.0'
 end
 
 target 'PlacesTestApp' do
