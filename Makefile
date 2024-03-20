@@ -37,7 +37,11 @@ clean:
 clean-ios-test-files:
 	rm -rf iosresults.xcresult
 
-archive: clean pod-install build	
+archive: pod-install _archive
+
+ci-archive: ci-pod-install _archive
+
+_archive: clean build	
 	xcodebuild -create-xcframework -framework $(SIMULATOR_ARCHIVE_PATH)$(EXTENSION_NAME).framework -framework $(IOS_ARCHIVE_PATH)$(EXTENSION_NAME).framework -output ./build/$(TARGET_NAME_XCFRAMEWORK)
 
 build:
