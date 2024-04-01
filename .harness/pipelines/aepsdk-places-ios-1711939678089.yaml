@@ -35,13 +35,15 @@ pipeline:
                       apt-get update
                       apt-get install sudo
                       sudo apt-get install make
+                      xcode-select --install
                       make build
           platform:
             os: Linux
-            arch: Amd64
+            arch: Arm64
           runtime:
             type: Cloud
             spec: {}
+        description: ""
   properties:
     ci:
       codebase:
