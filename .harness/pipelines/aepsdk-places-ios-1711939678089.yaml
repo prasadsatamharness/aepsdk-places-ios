@@ -14,11 +14,13 @@ pipeline:
             steps:
               - step:
                   type: Run
-                  name: Echo Welcome Message
-                  identifier: Echo_Welcome_Message
+                  name: Run_1
+                  identifier: Run_1
                   spec:
+                    connectorRef: account.Rohan_Dockerhub
+                    image: swift:latest
                     shell: Sh
-                    command: echo "Welcome to Harness CI"
+                    command: make build
           platform:
             os: Linux
             arch: Amd64
