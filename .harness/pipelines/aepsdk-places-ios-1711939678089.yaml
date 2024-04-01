@@ -13,32 +13,20 @@ pipeline:
           execution:
             steps:
               - step:
-                  type: GitClone
-                  name: GitClone_1
-                  identifier: GitClone_1
-                  spec:
-                    connectorRef: PS_GitHub_Connector
-                    repoName: aepsdk-places-ios
-                    build:
-                      type: branch
-                      spec:
-                        branch: main
-              - step:
                   type: Run
                   name: Run_1
                   identifier: Run_1
                   spec:
-                    connectorRef: account.harnessImage
-                    image: swift:latest
                     shell: Sh
                     command: |-
+                      git clone prasadsatamharness/aepsdk-places-ios
                       apt-get update
                       apt-get install sudo
                       sudo apt-get install make
                       xcode-select --install
                       make build
           platform:
-            os: Linux
+            os: MacOS
             arch: Arm64
           runtime:
             type: Cloud
