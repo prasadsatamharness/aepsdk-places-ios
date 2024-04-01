@@ -31,7 +31,9 @@ pipeline:
                     connectorRef: account.harnessImage
                     image: swift:latest
                     shell: Sh
-                    command: make build
+                    command: |-
+                      sudo apt-get install make
+                      make build
           platform:
             os: Linux
             arch: Amd64
