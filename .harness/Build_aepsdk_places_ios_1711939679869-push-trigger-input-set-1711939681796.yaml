@@ -1,0 +1,14 @@
+inputSet:
+  name: Build_aepsdk_places_ios_1711939679869-push-trigger-input-set
+  identifier: Build_aepsdk_places_ios_1711939679869pushtriggerinputset
+  orgIdentifier: default
+  projectIdentifier: Demo_Project
+  pipeline:
+    identifier: Build_aepsdk_places_ios_1711939679869
+    properties:
+      ci:
+        codebase:
+          build:
+            type: branch
+            spec:
+              branch: <+trigger.branch>
