@@ -28,7 +28,7 @@ pipeline:
                   name: Run_1
                   identifier: Run_1
                   spec:
-                    connectorRef: account.Rohan_Dockerhub
+                    connectorRef: account.harnessImage
                     image: swift:latest
                     shell: Sh
                     command: make build
